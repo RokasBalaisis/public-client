@@ -33,7 +33,7 @@ app.run(['$rootScope', '$localStorage', function($rootScope, $localStorage, $loc
         return delete $localStorage.auth_token;
     }
     $rootScope.$on('auth-login-complete', function() {
-        $location.path("/");
+        $location.path('/');
     });
     $rootScope.$on('auth-logout', function() {
         return $rootScope.deleteAuthToken();
