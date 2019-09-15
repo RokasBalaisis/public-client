@@ -1,0 +1,21 @@
+{
+  "name": "deotage-frontend",
+  "version": "1.0.0",
+  "description": "deployment",
+  "main": "app.js",
+  "dependencies": {
+    "angular-http-server": "^1.9.0",
+    "gulp-jscs": "^4.1.0",
+    "gulp-jshint": "^2.1.0",
+    "http-server": "^0.11.1",
+    "jshint-stylish": "^2.2.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roks",
+  "license": "ISC"
+}
