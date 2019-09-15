@@ -1,4 +1,4 @@
-var app = angular.module('deotage', ['ngStorage', 'ngRoute']).constant('API', 'https://api.localhost/');
+var app = angular.module('deotage', ['ngStorage', 'ngRoute']).constant('API', 'https://api.moviesandtvshows.com');
 
 app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locationProvider', function($httpProvider, $localStorageProvider, $routeProvider, $locationProvider) {
     $localStorageProvider.setKeyPrefix('');
