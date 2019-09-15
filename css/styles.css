@@ -1,0 +1,21 @@
+.login-image-section {
+    position: fixed;
+    min-width: 75vw;
+    max-width: 75vw;
+    min-height: 100vh;
+    max-height: 100vh;
+    background-image: url('/img/login-image-section.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 0;
+}
+
+.login-form-section {
+    float: right;
+    min-width: 25vw;
+    max-width: 25vw;
+    min-height: 100vh;
+    max-height: 100vh;
+    background-color: whitesmoke;
+}
