@@ -9,6 +9,9 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
         .when('/', {
             templateUrl: 'views/landing.html'
         })
+        .when('/login', {
+            templateUrl: 'views/login.html'
+        })
         .otherwise({
             redirectTo: '/'
         });
