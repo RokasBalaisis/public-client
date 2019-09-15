@@ -1,4 +1,4 @@
-var app = angular.module('deotage', ['ngStorage', 'ngRoute']).constant('API', 'https://api.moviesandtvshows.com');
+var app = angular.module('project', ['ngStorage', 'ngRoute']).constant('API', 'https://api.moviesandtvshows.com');
 
 app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locationProvider', function($httpProvider, $localStorageProvider, $routeProvider, $locationProvider) {
     $localStorageProvider.setKeyPrefix('');
@@ -7,6 +7,7 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
 
     $routeProvider
         .when('/', {
+            templateUrl: 'views/landing.html',
             controller: 'MainController'
         })
         .otherwise({
