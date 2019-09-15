@@ -7,8 +7,7 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
 
     $routeProvider
         .when('/', {
-            templateUrl: 'views/landing.html',
-            controller: 'MainController'
+            templateUrl: 'views/landing.html'
         })
         .otherwise({
             redirectTo: '/'
