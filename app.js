@@ -21,7 +21,7 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
     $locationProvider.html5Mode(true);
 }]);
 
-app.run(['$rootScope', '$localStorage', function($rootScope, $localStorage, $location) {
+app.run(['$rootScope', '$localStorage', '$location', function($rootScope, $localStorage, $location) {
 
     $rootScope.getAuthToken = function(new_token) {
         return $localStorage.auth_token;
