@@ -14,13 +14,15 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
             controller: 'MainController'
         })
         .when('/logout', {
+            controller: 'MainController',
             resolve: {
                 init: function() {
                     return function(AuthService) {
                         AuthService.logout();
                     }
                 }
-            }
+            },
+            redirectTo: '/'
         })
         .when('/users', {
             templateUrl: 'views/users.html',
