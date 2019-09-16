@@ -26,7 +26,7 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
 }]);
 
 app.run(['$rootScope', '$localStorage', '$location', function($rootScope, $localStorage, $location) {
-
+    $rootScope.loggedIn = false;
     $rootScope.getAuthToken = function() {
         var token_string = $localStorage.auth_token;
         var token_data = $localStorage.auth_token.split(" ");
@@ -40,8 +40,10 @@ app.run(['$rootScope', '$localStorage', '$location', function($rootScope, $local
     }
     $rootScope.$on('auth-login-complete', function() {
         $location.path('');
+        $rootScope.loggedIn = true;
     });
     $rootScope.$on('auth-logout', function() {
+        $rootScope.loggedIn = false;
         return $rootScope.deleteAuthToken();
     });
 }]);

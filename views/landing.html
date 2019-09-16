@@ -19,7 +19,9 @@
                     <a class="nav-link" href="/users">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a ng-if="loggedIn; else loggedOut" class="nav-link" href="/login">Logout</a>
+                    <ng-template $loggedOut><a class="nav-link" href="/login">Login</a></ng-template>
+
                 </li>
             </ul>
         </div>
