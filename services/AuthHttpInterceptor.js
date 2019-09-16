@@ -1,4 +1,4 @@
-app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injector', 'API', 'AuthService', function($q, $rootScope, $localStorage, $injector, API, AuthService) {
+app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injector', 'API', function($q, $rootScope, $localStorage, $injector, API) {
     return {
         // When sending a request
         request: function(config) {
@@ -28,7 +28,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                 // server, if we're within the ttl_refresh period.
                 var deferred = $q.defer();
                 // We inject $http, otherwise we will get a circular ref
-                $injector.get('$http').post(API + '/reissue', {}, {
+                $injector.get('$http', AuthService).post(API + '/reissue', {}, {
                     headers: {
                         Authorization: AuthService.getToken()
                     }
