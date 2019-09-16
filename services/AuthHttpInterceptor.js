@@ -62,9 +62,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                 return deferred.promise;
             }
             if (rejection.status === 500) {
-                var deferred = $q.defer();
-                $rootScope.$broadcast('auth-logout');
-                return deferred.reject();
+                return $rootScope.$broadcast('auth-logout');
             }
             return $q.reject(rejection);
         }
