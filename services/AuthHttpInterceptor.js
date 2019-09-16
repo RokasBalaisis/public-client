@@ -22,7 +22,6 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         },
         // On a unsuccessful response
         responseError: function(rejection) {
-            console.log(rejection.config);
             // If the error is 401 related
             if (rejection.status === 401) {
                 // We're going to get attempt to refresh the token on the
@@ -39,7 +38,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                     // token, so let's put it in storage
                     $rootScope.storeAuthToken("Bearer " + response.data.token);
                     // Now let's send the original request again
-                    $injector.get('$http')(response.config)
+                    $injector.get('$http')(rejection.config)
                         .then(function(response) {
                             console.log(response.config);
                             // The repeated request was successful! So let's put
