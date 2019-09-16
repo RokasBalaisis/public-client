@@ -24,10 +24,10 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         responseError: function(rejection) {
             // If the error is 401 related
             if (rejection.status === 401) {
-                console.log("rejection: " + rejection);
                 // We're going to get attempt to refresh the token on the
                 // server, if we're within the ttl_refresh period.
                 var deferred = $q.defer();
+                console.log(deferred);
                 // We inject $http, otherwise we will get a circular ref
                 $injector.get('$http').post(API + '/reissue', {}, {
                     headers: {
@@ -38,7 +38,6 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                     // If this request was successful, we will have a new
                     // token, so let's put it in storage
                     $rootScope.storeAuthToken("Bearer " + response.data.token);
-                    console.log('added');
                     // Now let's send the original request again
                     $injector.get('$http')(response.config)
                         .then(function(response) {
