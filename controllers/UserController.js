@@ -4,7 +4,10 @@ app.controller('UserController', ['$scope', 'ApiService', function($scope, ApiSe
 
     $scope.index = function() {
         var promise = ApiService.users_index();
-        //promise.then();
+        promise.then(function(response) {
+            $scope.users = response.data.users;
+        });
+
     }
 
     $scope.index();
