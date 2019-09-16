@@ -3,7 +3,7 @@ app.controller('UserController', ['$scope', 'ApiService', function($scope, ApiSe
 
 
     $scope.index = function() {
-        var promise = AuthService.index();
+        var promise = ApiService.index();
         //promise.then();
     }
 
