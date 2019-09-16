@@ -42,7 +42,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                     // Now let's send the original request again
                     $injector.get('$http')(response.config)
                         .then(function(response) {
-
+                            console.log("original request sent again");
                             // The repeated request was successful! So let's put
                             // this response back to the original workflow
                             return deferred.resolve(response);
