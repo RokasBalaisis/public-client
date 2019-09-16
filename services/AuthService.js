@@ -1,4 +1,4 @@
-app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', function($rootScope, $http, $localStorage, API) {
+app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtHelper', function($rootScope, $http, $localStorage, API, jwtHelper) {
     return {
 
         getToken: function() {
@@ -7,7 +7,23 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', funct
         },
         isAuthenticated: function() {
             // If there is a token, the return true
-            return ($rootScope.getAuthToken()) ? true : false
+            $token = $rootScope.getAuthToken();
+            if ($token == null)
+                return false;
+            if (jwtHelper.isTokenExpired($token) == true) {
+                $http.post(API + '/reissue', {}, {
+                        headers: {
+                            Authorization: $rootScope.getAuthToken()
+                        }
+                    }).then(function(response) {
+                        $rootScope.storeAuthToken("Bearer " + response.data.token);
+                        return true;
+                    }),
+                    function() {
+                        return false;
+                    }
+            }
+            return true;
         },
         login: function(credentials) {
             $http({
