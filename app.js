@@ -13,6 +13,10 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
             templateUrl: 'views/login.html',
             controller: 'MainController'
         })
+        .when('/users', {
+            templateUrl: 'views/users.html',
+            controller: 'MainController'
+        })
         .otherwise({
             redirectTo: '/'
         });
