@@ -51,8 +51,9 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                             $rootScope.$broadcast('auth-logout');
                             return deferred.reject();
                         })
-                }, function(rejection) {
-                    if (rejection.status === 500) {
+                }, function(response) {
+                    if (response.status === 500) {
+                        console.log("500");
                         $rootScope.deleteAuthToken();
                         $rootScope.loginStatus = false;
                     }
