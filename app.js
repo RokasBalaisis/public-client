@@ -32,6 +32,8 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
         return result;
     }
     $rootScope.getAuthToken = function() {
+        if ($localStorage.auth_token == null)
+            return null;
         var token_string = $localStorage.auth_token;
         var token_data = $localStorage.auth_token.split(" ");
         return token_data[1];
