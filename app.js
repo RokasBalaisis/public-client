@@ -50,5 +50,5 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
     $rootScope.$on('auth-logout', function() {
         return $rootScope.deleteAuthToken();
     });
-    $rootScope.loggedIn();
+    $rootScope.loginStatus = $rootScope.loggedIn();
 }]);
