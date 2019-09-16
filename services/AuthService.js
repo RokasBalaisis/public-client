@@ -16,6 +16,8 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
                             Authorization: $rootScope.getAuthToken()
                         }
                     }).then(function(response) {
+                        if (response.data.token == null)
+                            return false;
                         $rootScope.storeAuthToken("Bearer " + response.data.token);
                         return true;
                     }),
