@@ -24,6 +24,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         responseError: function(rejection) {
             // If the error is 401 related
             if (rejection.status === 401) {
+                console.log("rejection: " + rejection);
                 // We're going to get attempt to refresh the token on the
                 // server, if we're within the ttl_refresh period.
                 var deferred = $q.defer();
