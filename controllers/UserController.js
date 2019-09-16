@@ -3,7 +3,7 @@ app.controller('UserController', ['$scope', 'ApiService', function($scope, ApiSe
 
 
     $scope.index = function() {
-        var promise = ApiService.index();
+        var promise = ApiService.users_index();
         //promise.then();
     }
 
