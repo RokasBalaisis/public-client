@@ -47,9 +47,9 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
     $rootScope.$on('auth-login-complete', function() {
         $location.path('');
     });
-    $rootScope.$on('auth-logout', function() {
+    $rootScope.$on('auth-logout', function($route) {
         $rootScope.deleteAuthToken();
-        return window.location.reload();
+        $route.reload();
     });
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
         $rootScope.loginStatus = $rootScope.loggedIn();
