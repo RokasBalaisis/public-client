@@ -30,8 +30,8 @@ app.run(['$rootScope', '$localStorage', '$location', function($rootScope, $local
     $rootScope.getAuthToken = function() {
         var token_string = $localStorage.auth_token;
         var token_data = $localStorage.auth_token.split(" ");
-        console.log(token_data);
-        return $token_data[1];
+        console.log(token_data[1]);
+        return token_data[1];
     }
     $rootScope.storeAuthToken = function(new_token) {
         return $localStorage.auth_token = new_token;
