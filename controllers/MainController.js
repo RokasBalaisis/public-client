@@ -8,7 +8,10 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', functio
             password: $scope.password
         }
         var promise = AuthService.login($data);
-        // promise.then();
+    }
+
+    $scope.logout = function() {
+        var promise = AuthService.logout();
     }
 
 }]);
