@@ -26,7 +26,9 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
 }]);
 
 app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($rootScope, $localStorage, $location, AuthService) {
-    $rootScope.loggedIn = AuthService.isAuthenticated();
+    $rootScope.loggedIn = function() {
+        return AuthService.isAuthenticated();
+    }
     $rootScope.getAuthToken = function() {
         var token_string = $localStorage.auth_token;
         var token_data = $localStorage.auth_token.split(" ");
