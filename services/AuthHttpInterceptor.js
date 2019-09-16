@@ -36,7 +36,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
 
                     // If this request was successful, we will have a new
                     // token, so let's put it in storage
-                    console.log("inside");
+                    console.log(response);
                     $rootScope.storeAuthToken(response.token);
                     // Now let's send the original request again
                     $injector.get('$http')(response.config)
