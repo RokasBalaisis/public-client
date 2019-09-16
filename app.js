@@ -28,9 +28,9 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
 app.run(['$rootScope', '$localStorage', '$location', function($rootScope, $localStorage, $location) {
 
     $rootScope.getAuthToken = function() {
-        $token_string = $localStorage.auth_token;
-        $token_data = $localStorage.auth_token.split(" ");
-        console.log($token_data);
+        var token_string = $localStorage.auth_token;
+        var token_data = $localStorage.auth_token.split(" ");
+        console.log(token_data);
         return $token_data[1];
     }
     $rootScope.storeAuthToken = function(new_token) {
