@@ -28,7 +28,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                 // server, if we're within the ttl_refresh period.
                 var deferred = $q.defer();
                 // We inject $http, otherwise we will get a circular ref
-                $injector.get('$http', AuthService).post(API + '/reissue', {}, {
+                $injector.get('$http', 'AuthService').post(API + '/reissue', {}, {
                     headers: {
                         Authorization: AuthService.getToken()
                     }
