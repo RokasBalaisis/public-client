@@ -51,12 +51,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                             $rootScope.$broadcast('auth-logout');
                             return deferred.reject();
                         })
-                }, function(response) {
-                    if (response.status === 500) {
-                        console.log("500");
-                        $rootScope.deleteAuthToken();
-                        $rootScope.loginStatus = false;
-                    }
+                }, function() {
                     // Refreshing the token failed, so let's carry on with
                     // 401
                     $rootScope.$broadcast('auth-logout');
@@ -65,6 +60,9 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                 // Now we continue with the 401 error if we've reached this
                 // point
                 return deferred.promise;
+            }
+            if (rejection.status === 500) {
+                console.log("500");
             }
             return $q.reject(rejection);
         }
