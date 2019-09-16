@@ -22,12 +22,12 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         },
         // On a unsuccessful response
         responseError: function(rejection) {
+            console.log(rejection.config);
             // If the error is 401 related
             if (rejection.status === 401) {
                 // We're going to get attempt to refresh the token on the
                 // server, if we're within the ttl_refresh period.
                 var deferred = $q.defer();
-                console.log(deferred);
                 // We inject $http, otherwise we will get a circular ref
                 $injector.get('$http').post(API + '/reissue', {}, {
                     headers: {
