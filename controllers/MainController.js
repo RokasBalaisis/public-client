@@ -1,8 +1,9 @@
-app.controller('MainController', ['$scope', 'ApiService', 'AuthService', function($scope, ApiService, AuthService) {
+app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootScope', function($scope, ApiService, AuthService, $rootScope) {
     $scope.name = 'Angular ';
 
 
     $scope.login = function() {
+        $rootScope.currentPage = "login";
         var $data = {
             email: $scope.email,
             password: $scope.password
