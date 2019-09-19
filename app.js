@@ -52,8 +52,8 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
         $rootScope.loginStatus = false;
     });
     $rootScope.$on("$locationChangeStart", function(event, next, current) {});
-    $rootScope.$on("$locationChangeSuccess", function(event, next, current, $route) {
-        console.log($route.current.params.name);
+    $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
+        console.log(current.params.name);
     });
 
 }]);
