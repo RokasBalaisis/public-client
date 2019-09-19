@@ -26,7 +26,6 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
 }]);
 
 app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($rootScope, $localStorage, $location, AuthService) {
-    $rootScope.currentPage = $location.path();
     $rootScope.loggedIn = function() {
         var result = AuthService.isAuthenticated();
         return result;
@@ -59,5 +58,8 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
             $rootScope.navbarDisabled = false;
         }
     });
+
+    $rootScope.currentPage = $location.path();
+    $rootScope.loggedIn();
 
 }]);
