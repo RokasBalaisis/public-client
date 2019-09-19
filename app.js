@@ -53,7 +53,7 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
     });
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
         $rootScope.loginStatus = $rootScope.loggedIn();
-        console.log($rootScope.currentPage);
+        console.log(current);
     });
 
 }]);
