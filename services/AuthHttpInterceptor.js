@@ -21,7 +21,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
             return response;
         },
         // On a unsuccessful response
-        responseError: function(rejection, AuthService) {
+        responseError: function(rejection) {
             // If the error is 401 related
             if (rejection.status === 401) {
                 // We're going to get attempt to refresh the token on the
@@ -30,7 +30,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                 // We inject $http, otherwise we will get a circular ref
                 $injector.get('$http').post(API + '/reissue', {}, {
                     headers: {
-                        Authorization: AuthService.getToken()
+                        Authorization: $rootScope.getAuthToken()
                     }
                 }).then(function(response) {
 
