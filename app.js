@@ -53,7 +53,10 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
     $rootScope.$on("$locationChangeStart", function(event, next, current) {});
     $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
         $rootScope.currentPage = $location.path();
-        $rootScope.loggedIn();
+        var authStatus = $rootScope.loggedIn();
+        if (authStatus == false) {
+            $location.path('');
+        }
         if ($rootScope.currentPage == '/login') {
             $rootScope.navbarDisabled = true;
         } else {
