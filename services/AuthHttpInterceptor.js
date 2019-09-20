@@ -33,9 +33,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                         Authorization: $rootScope.getAuthToken()
                     }
                 }).then(function(response) {
-                    if (response.status === 500) {
-                        console.log("500 error");
-                    }
+                    console.log(response);
                     // If this request was successful, we will have a new
                     // token, so let's put it in storage
                     $rootScope.storeAuthToken("Bearer " + response.data.token);
