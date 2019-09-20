@@ -33,14 +33,13 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                         Authorization: $rootScope.getAuthToken()
                     }
                 }).then(function(response) {
-                    console.log(response);
                     // If this request was successful, we will have a new
                     // token, so let's put it in storage
-                    $rootScope.storeAuthToken("Bearer " + response.data.token);
+                    //$rootScope.storeAuthToken("Bearer " + response.data.token);
                     // Now let's send the original request again
                     $injector.get('$http')(rejection.config)
                         .then(function(response) {
-                            console.log(response.config);
+                            console.log(response);
                             // The repeated request was successful! So let's put
                             // this response back to the original workflow
                             return deferred.resolve(response);
