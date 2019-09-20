@@ -21,7 +21,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
             return response;
         },
         // On a unsuccessful response
-        responseError: function(rejection) {
+        responseError: function(rejection, AuthService) {
             // If the error is 401 related
             if (rejection.status === 401) {
                 // We're going to get attempt to refresh the token on the
