@@ -54,13 +54,24 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
     $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
         $rootScope.currentPage = $location.path();
         var authStatus = $rootScope.loggedIn();
-        if (authStatus == false) {
-            $location.path('');
-        }
         if ($rootScope.currentPage == '/login') {
             $rootScope.navbarDisabled = true;
         } else {
             $rootScope.navbarDisabled = false;
+        }
+
+        switch ($rootScope.currentPage) {
+            case '/':
+                $rootScope.navbarDisabled = false;
+                break;
+            case '/login':
+                $rootScope.navbarDisabled = true;
+                break;
+            case '/users':
+                $rootScope.navbarDisabled = false;
+                if (authStatus == false)
+                    $location.path('');
+                break;
         }
     });
 
