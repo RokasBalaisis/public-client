@@ -30,16 +30,17 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                 // We inject $http, otherwise we will get a circular ref
                 $injector.get('$http').post(API + '/reissue', {}, {
                     headers: {
-                        Authorization: $rootScope.getAuthToken()
+                        Authorization: AuthService.getToken()
                     }
                 }).then(function(response) {
+
                     // If this request was successful, we will have a new
                     // token, so let's put it in storage
-                    //$rootScope.storeAuthToken("Bearer " + response.data.token);
+                    $rootScope.storeAuthToken(response.token);
                     // Now let's send the original request again
-                    $injector.get('$http')(rejection.config)
+                    $injector.get('$http')(response.config)
                         .then(function(response) {
-                            console.log(response);
+
                             // The repeated request was successful! So let's put
                             // this response back to the original workflow
                             return deferred.resolve(response);
@@ -47,23 +48,20 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                             // Something went wrong with this request
                             // So we reject the response and carry on with 401
                             // error
-                            $rootScope.$broadcast('auth-logout');
+                            $rootScope.$broadcast('auth - logout');
                             return deferred.reject();
                         })
                 }, function() {
                     // Refreshing the token failed, so let's carry on with
                     // 401
-                    $rootScope.$broadcast('auth-logout');
+                    $rootScope.$broadcast('auth - logout');
                     return deferred.reject();
                 });
                 // Now we continue with the 401 error if we've reached this
                 // point
                 return deferred.promise;
             }
-            if (rejection.status === 500) {
-                return $rootScope.$broadcast('auth-logout');
-            }
             return $q.reject(rejection);
         }
-    }
-}])
+    };
+}]);
