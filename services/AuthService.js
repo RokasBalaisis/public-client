@@ -10,21 +10,8 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
             $token = $rootScope.getAuthToken();
             if ($token == null)
                 return false;
-            if (jwtHelper.isTokenExpired($token) == true) {
-                $http.post(API + '/reissue', {}, {
-                        headers: {
-                            Authorization: $rootScope.getAuthToken()
-                        }
-                    }).then(function(response) {
-                        if (response.data == null)
-                            return false;
-                        $rootScope.storeAuthToken("Bearer " + response.data.token);
-                        return true;
-                    }),
-                    function() {
-                        return false;
-                    }
-            }
+            if (jwtHelper.isTokenExpired($token) == true)
+                return false;
             return true;
         },
         login: function(credentials) {
