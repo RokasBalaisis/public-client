@@ -21,6 +21,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         // On a unsuccessful response
         responseError: function(rejection) {
             // If the error is 401 related
+            console.log("test");
             if (rejection.status === 401) {
                 return $rootScope.$broadcast('auth-logout');
             }
