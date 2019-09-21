@@ -48,6 +48,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                             // Something went wrong with this request
                             // So we reject the response and carry on with 401
                             // error
+                            console.log("token expired and cant be refreshed");
                             $rootScope.$broadcast('auth - logout');
                             return deferred.reject();
                         })
