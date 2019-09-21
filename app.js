@@ -48,12 +48,10 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
     });
     $rootScope.$on('auth-logout', function($route) {
         $rootScope.deleteAuthToken();
-        $rootScope.loginStatus = false;
     });
     $rootScope.$on("$locationChangeStart", function(event, next, current) {});
     $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
         $rootScope.currentPage = $location.path();
-        var authStatus = $rootScope.loggedIn();
         if ($rootScope.currentPage == '/login') {
             $rootScope.navbarDisabled = true;
         } else {
@@ -69,9 +67,9 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
                 break;
             case '/users':
                 $rootScope.navbarDisabled = false;
-                if (authStatus == false)
-                // $location.path('');
-                    break;
+                if ($rootScope.loggedIn() == false)
+                    $location.path('');
+                break;
         }
     });
 
