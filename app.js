@@ -70,8 +70,8 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
             case '/users':
                 $rootScope.navbarDisabled = false;
                 if (authStatus == false)
-                    $location.path('');
-                break;
+                // $location.path('');
+                    break;
         }
     });
 
