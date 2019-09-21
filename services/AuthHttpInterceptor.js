@@ -51,20 +51,19 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                             $rootScope.$broadcast('auth - logout');
                             return deferred.reject();
                         })
-                }, function(response) {
+                }, function() {
                     // Refreshing the token failed, so let's carry on with
                     // 401
-                    console.log("token expired and cant be refreshed");
-                    console.log(response);
                     $rootScope.$broadcast('auth - logout');
                     return deferred.reject();
+                }).catch(function(err) {
+                    console.log(err);
+                    throw err;
                 });
                 // Now we continue with the 401 error if we've reached this
                 // point
-                console.log("point 1");
                 return deferred.promise;
             }
-            console.log("point 2");
             return $q.reject(rejection);
         }
     };
