@@ -10,6 +10,6 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', function
         });
 
     }
-
-    $scope.index();
+    if ($rootScope.loggedIn())
+        $scope.index();
 }]);
