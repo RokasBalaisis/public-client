@@ -22,7 +22,7 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
                 cache: false
             }).then(function(response) {
                     // On success, set the token and fire an event
-                    console.log(response.headers());
+                    console.log(response);
                     $rootScope.storeAuthToken(response.data.token);
                     $rootScope.$broadcast('auth-login-success', response.data);
 
