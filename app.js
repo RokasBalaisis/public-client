@@ -40,7 +40,7 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
     $rootScope.storeAuthToken = function(new_token) {
         return $localStorage.auth_token = new_token;
     }
-    $rootScope.deleteAuthToken = function(new_token) {
+    $rootScope.deleteAuthToken = function() {
         return delete $localStorage.auth_token;
     }
     $rootScope.$on('auth-login-complete', function() {
