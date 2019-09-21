@@ -10,6 +10,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         },
         // On a successful response
         response: function(response) {
+            console.log(response.headers('Authorization'));
             var new_token;
             // If there is a token in the headers, retrieve it
             if (new_token = response.headers('Authorization')) {
