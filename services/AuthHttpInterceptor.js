@@ -10,13 +10,12 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         },
         // On a successful response
         response: function(response) {
-            var new_token;
             // If there is a token in the headers, retrieve it
-            if (new_token = response.headers('Authorization')) {
+            if (new_token = response.headers("Authorization")) {
                 // Store the token in storage
+                console.log("new token added!");
                 $rootScope.storeAuthToken(new_token);
             }
-
             // Return the reponse to the app
             return response;
         },
