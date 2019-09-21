@@ -61,8 +61,10 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                 });
                 // Now we continue with the 401 error if we've reached this
                 // point
+                console.log("point 1");
                 return deferred.promise;
             }
+            console.log("point 2");
             return $q.reject(rejection);
         }
     };
