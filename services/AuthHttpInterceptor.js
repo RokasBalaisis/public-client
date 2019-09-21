@@ -55,10 +55,8 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
                     // Refreshing the token failed, so let's carry on with
                     // 401
                     $rootScope.$broadcast('auth - logout');
+                    $q.reject(rejection);
                     return deferred.reject();
-                }).catch(function(err) {
-                    console.log(err);
-                    throw err;
                 });
                 // Now we continue with the 401 error if we've reached this
                 // point
