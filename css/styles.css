@@ -4,7 +4,7 @@
     max-width: 75vw;
     min-height: 100vh;
     max-height: 100vh;
-    background-image: url('/img/login-image-section.jpg');
+    background-image: linear-gradient( rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('/img/login-image-section.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -17,5 +17,25 @@
     max-width: 25vw;
     min-height: 100vh;
     max-height: 100vh;
-    background-color: whitesmoke;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.landingContainer {
+    position: relative;
+    width: 75vw;
+    height: 85vh;
+    margin: 5vh auto 2vh auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    color: whitesmoke;
+}
+
+.landingBackground {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient( rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('/img/landing-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
