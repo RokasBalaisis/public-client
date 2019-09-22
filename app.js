@@ -68,7 +68,7 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
             case '/users':
                 $rootScope.navbarDisabled = false;
                 if ($rootScope.loggedIn() == false) {
-                    //$location.path('');
+                    $location.path('');
                 }
                 break;
         }
