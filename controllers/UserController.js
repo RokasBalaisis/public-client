@@ -1,4 +1,4 @@
-app.controller('UserController', ['$scope', 'ApiService', '$rootScope', function($scope, ApiService, $rootScope) {
+app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$location', function($scope, ApiService, $rootScope, $location) {
     $scope.name = 'Angular ';
 
 
@@ -6,6 +6,10 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', function
         $rootScope.currentPage = "users";
         var promise = ApiService.users_index();
         promise.then(function(response) {
+            if (response.data.users == null) {
+                $rootScope.$broadcast('auth-logout');
+                return $location.path('');
+            }
             $scope.users = response.data.users;
         });
 
