@@ -10,6 +10,7 @@
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" id="password" ng-model="password" placeholder="Password">
+            <small id="passwordHelp" class="form-text text-muted">We can't see the password, it's encrypted.</small>
         </div>
         <button type="submit" class="btn btn-primary" style="margin: 0 auto; display:block;" ng-click="login(email, password)">Login</button>
     </form>

@@ -1,24 +1,24 @@
 <!-- Page Content -->
 <div class="usersContainer">
-    <h1>Users list</h1>
+    <div class="usersContainerHeader">
+        <h1>Users list</h1>
+    </div>
     <table class="table table-borderless table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Created</th>
-                <th scope="col">Updated</th>
-                <th scope="col">Actions</th>
+                <th style="width:5%" scope="col">Id</th>
+                <th style="width:30%" scope="col">Name</th>
+                <th style="width:25%" scope="col">Email</th>
+                <th style="width:25%" scope="col">Created</th>
+                <th style="width:15%" scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="user in users">
-                <th scope="row">{{user.id}}</th>
+                <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.created_at}}</td>
-                <td>{{user.updated_at}}</td>
             </tr>
         </tbody>
     </table>

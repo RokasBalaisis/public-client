@@ -17,7 +17,17 @@
     max-width: 25vw;
     min-height: 100vh;
     max-height: 100vh;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: whitesmoke;
+}
+
+.login-form-section small {
+    color: rgb(206, 202, 202) !important;
+}
+
+.login-form-section input {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
 }
 
 .landingContainer {
@@ -40,6 +50,17 @@
     background-size: cover;
 }
 
+.usersContainerHeader {
+    width: 50vw;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: whitesmoke;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    border-radius: 5px;
+}
+
 .usersContainer {
     color: whitesmoke;
 }
@@ -47,4 +68,34 @@
 .usersContainer>table {
     background-color: rgba(0, 0, 0, 0.8);
     color: whitesmoke;
+    width: 75vw;
+    margin: 5vh auto 2vh auto;
+    border-radius: 5px;
+}
+
+.usersContainer>table tr:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(197, 197, 197);
+    font-weight: 700;
+}
+
+body nav {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: whitesmoke;
+}
+
+body nav a {
+    color: whitesmoke;
+}
+
+body nav a:hover {
+    color: rgb(163, 162, 162);
+}
+
+body nav span {
+    background: url('/img/bars-solid.svg') !important;
+}
+
+body nav button {
+    outline: none !important;
 }
