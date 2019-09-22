@@ -6,7 +6,7 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
         $rootScope.currentPage = "users";
         var promise = ApiService.users_index();
         promise.then(function(response) {
-            if (response.data.users == null) {
+            if (response.data == null) {
                 $rootScope.$broadcast('auth-logout');
                 return $location.path('');
             }
