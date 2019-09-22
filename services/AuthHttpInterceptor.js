@@ -1,4 +1,4 @@
-app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injector', 'API', function($q, $rootScope, $localStorage, $injector, API) {
+app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injector', 'API', '$location', function($q, $rootScope, $localStorage, $injector, API, $location) {
     return {
         // When sending a request
         request: function(config) {
@@ -22,7 +22,9 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         responseError: function(rejection) {
             // If the error is 401 related
             if (rejection.status === 401) {
-                return $rootScope.$broadcast('auth-logout');
+                $rootScope.deleteAuthToken();
+                $rootScope.$broadcast('auth-logout');
+                return $location.path('');
             }
             if (rejection.status === 500) {
                 console.log("it's a 500!");

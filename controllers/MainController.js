@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootScope', function($scope, ApiService, AuthService, $rootScope) {
+app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootScope', '$location', function($scope, ApiService, AuthService, $rootScope, $location) {
     $scope.name = 'Angular ';
 
 
@@ -14,5 +14,9 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
     $scope.logout = function() {
         var promise = AuthService.logout();
     }
+
+    $scope.redirectHome = function() {
+        $location.path('');
+    };
 
 }]);

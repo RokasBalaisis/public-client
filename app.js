@@ -48,6 +48,7 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
     });
     $rootScope.$on('auth-logout', function($route) {
         $rootScope.deleteAuthToken();
+        $rootScope.loggedIn();
     });
     $rootScope.$on("$locationChangeStart", function(event, next, current) {});
     $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
@@ -63,6 +64,9 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($ro
                 $rootScope.navbarDisabled = false;
                 break;
             case '/login':
+                if ($rootScope.loggedIn() == true) {
+                    $location.path('');
+                }
                 $rootScope.navbarDisabled = true;
                 break;
             case '/users':
