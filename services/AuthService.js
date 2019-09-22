@@ -10,8 +10,6 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
             $token = $rootScope.getAuthToken();
             if ($token == null)
                 return false;
-            if (jwtHelper.isTokenExpired($token) == true)
-                return false;
             return true;
         },
         login: function(credentials) {
