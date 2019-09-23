@@ -20,7 +20,7 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
         var promise = ApiService.register($data);
 
         promise.then(function(response) {
-            console.log(promise);
+            console.log(response);
         }, function(error) {
             console.log(error);
         })
