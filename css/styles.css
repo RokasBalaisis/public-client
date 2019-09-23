@@ -126,14 +126,16 @@
     color: whitesmoke;
 }
 
-.landingBackground {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
+.pagination {
+    margin: 0 auto;
+}
+
+body {
     background-image: linear-gradient( rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('/img/landing-background.jpg');
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .usersContainerHeader {
@@ -184,6 +186,23 @@ body nav span {
 
 body nav button {
     outline: none !important;
+}
+
+.sort-solid {
+    display: inline-block;
+    width: 0.75em;
+    height: 1.32em;
+    vertical-align: middle;
+    content: "";
+    background: url('/img/sort-solid.svg') !important;
+}
+
+.sort-up-solid {
+    background: url('/img/sort-up-solid.svg') !important;
+}
+
+.sort-down-solid {
+    background: url('/img/sort-down-solid.svg') !important;
 }
 
 .popupWindow {

@@ -8,7 +8,7 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
             email: $scope.email,
             password: $scope.password
         }
-        var promise = AuthService.login($data);
+        AuthService.login($data);
     };
 
     $scope.register = function() {

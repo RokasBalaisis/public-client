@@ -3,18 +3,27 @@
     <div class="usersContainerHeader">
         <h1>Users list</h1>
     </div>
-    <table class="table table-borderless table-hover">
+    <table class="table table-borderless table-hover" style="table-layout: fixed;">
+        <input type="text" ng-model="search" class="form-control" placeholder="Search for an user" style="width:12vw; left:75vw; top:4vh; position: relative; font-size: 11px;">
         <thead>
             <tr>
-                <th style="width:5%" scope="col">Id</th>
-                <th style="width:30%" scope="col">Name</th>
-                <th style="width:25%" scope="col">Email</th>
-                <th style="width:25%" scope="col">Created</th>
-                <th style="width:15%" scope="col">Actions</th>
+                <th ng-click="sort('id')" style="width:10%">Id
+                    <span class="sort-solid" ng-show="sortKey=='id'" ng-class="{'sort-up-solid':reverse,'sort-down-solid':!reverse}"></span>
+                </th>
+                <th ng-click="sort('username')" style="width:30%">Username
+                    <span class="sort-solid" ng-show="sortKey=='username'" ng-class="{'sort-up-solid':reverse,'sort-down-solid':!reverse}"></span>
+                </th>
+                <th ng-click="sort('email')" style="width:25%">Email
+                    <span class="sort-solid" ng-show="sortKey=='email'" ng-class="{'sort-up-solid':reverse,'sort-down-solid':!reverse}"></span>
+                </th>
+                <th ng-click="sort('created_at')" style="width:25%">Created
+                    <span class="sort-solid" ng-show="sortKey=='created_at'" ng-class="{'sort-up-solid':reverse,'sort-down-solid':!reverse}"></span>
+                </th>
+                <th style="width:10%" scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in users">
+            <tr ng-repeat="user in filterData = (users | filter : search | orderBy:sortKey:reverse) | limitTo:10:10*(page-1) |orderBy:sortKey:reverse">
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
@@ -22,4 +31,7 @@
             </tr>
         </tbody>
     </table>
+    <div class="pagination">
+        <ul uib-pagination total-items="filterData.length" ng-model="page" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=10></ul>
+    </div>
 </div>

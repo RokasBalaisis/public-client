@@ -1,4 +1,4 @@
-var app = angular.module('project', ['ngStorage', 'ngRoute', 'angular-jwt']).constant('API', 'https://api.moviesandtvshows.com');
+var app = angular.module('project', ['ngStorage', 'ngRoute', 'angular-jwt', 'ui.bootstrap']).constant('API', 'https://api.moviesandtvshows.com');
 
 app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locationProvider', function($httpProvider, $localStorageProvider, $routeProvider, $locationProvider) {
     $localStorageProvider.setKeyPrefix('');
@@ -25,7 +25,7 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
     $locationProvider.html5Mode(true);
 }]);
 
-app.run(['$rootScope', '$localStorage', '$location', 'AuthService', function($rootScope, $localStorage, $location, AuthService) {
+app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService', function($rootScope, $localStorage, $location, AuthService, ApiService) {
     $rootScope.loggedIn = function() {
         var result = AuthService.isAuthenticated();
         return result;
