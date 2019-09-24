@@ -48,7 +48,7 @@
     color: whitesmoke;
 }
 
-.login-form-section input:focus::placeholder {
+input:focus::placeholder {
     color: transparent;
 }
 
@@ -128,6 +128,26 @@
 
 .pagination {
     margin: 0 auto;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.pagination>ul>li.page-item.active>a.page-link {
+    background-color: whitesmoke;
+    border-color: whitesmoke;
+    color: black;
+}
+
+.pagination>ul>li.page-item>a.page-link {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: black;
+    color: whitesmoke;
+    transition: 0.4s ease-in-out;
+}
+
+.pagination>ul>li.page-item>a.page-link:hover {
+    font-size: 16px;
+    padding: 0.35rem 0.55rem;
 }
 
 body {
@@ -157,14 +177,34 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
     color: whitesmoke;
     width: 75vw;
-    margin: 5vh auto 2vh auto;
-    border-radius: 5px;
+    margin: 0vh auto 2vh auto;
+    font-size: 14px;
+    border-radius: 5px !important;
 }
 
-.usersContainer>table tr:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+.usersContainer>table th:hover {
+    border-radius: 5px !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: rgb(197, 197, 197);
+    cursor: pointer;
+}
+
+.usersContainer>table tr:not(:first-child):hover {
+    background-color: rgba(0, 0, 0, 0.5) !important;
     color: rgb(197, 197, 197);
     font-weight: 700;
+}
+
+.input-res {
+    width: 100%;
+    max-width: 12vw;
+    box-sizing: border-box;
+    left: 75.4vw;
+    top: 0vh;
+    position: relative;
+    font-size: 11px;
+    font-weight: 700;
+    color: black;
 }
 
 body nav {
@@ -198,11 +238,75 @@ body nav button {
 }
 
 .sort-up-solid {
+    height: 1.2em;
     background: url('/img/sort-up-solid.svg') !important;
+    margin-top: 0.3em;
 }
 
 .sort-down-solid {
+    height: 1.2em;
     background: url('/img/sort-down-solid.svg') !important;
+    margin-bottom: 0.3em;
+}
+
+.edit-solid {
+    display: inline-block;
+    width: 21.5px;
+    height: 19.2px;
+    vertical-align: middle;
+    content: "";
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+    margin-bottom: 8px;
+    margin-left: 2px;
+    background: url('/img/edit-solid.svg') !important;
+    cursor: pointer;
+    transition: 0.5s ease-in;
+}
+
+.edit-solid:hover {
+    -webkit-filter: invert(0%);
+    filter: invert(0%);
+    background: url('/img/edit-solid-hover.svg') !important;
+}
+
+.info-square-solid {
+    display: inline-block;
+    width: 17px;
+    height: 20px;
+    vertical-align: middle;
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+    margin-bottom: 5px;
+    background: url('/img/info-square-solid.svg') !important;
+    cursor: pointer;
+    transition: 0.5s ease-in;
+}
+
+.info-square-solid:hover {
+    -webkit-filter: invert(0%);
+    filter: invert(0%);
+    background: url('/img/info-square-solid-hover.svg') !important;
+}
+
+.trash-alt-solid {
+    display: inline-block;
+    width: 17px;
+    height: 19px;
+    vertical-align: middle;
+    content: "";
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+    margin-bottom: 8px;
+    background: url('/img/trash-alt-solid.svg') !important;
+    cursor: pointer;
+    transition: 0.5s ease-in;
+}
+
+.trash-alt-solid:hover {
+    background: url('/img/trash-alt-solid-hover.svg') !important;
+    -webkit-filter: invert(0%);
+    filter: invert(0%);
 }
 
 .popupWindow {

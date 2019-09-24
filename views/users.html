@@ -4,30 +4,35 @@
         <h1>Users list</h1>
     </div>
     <table class="table table-borderless table-hover" style="table-layout: fixed;">
-        <input type="text" ng-model="search" class="form-control" placeholder="Search for an user" style="width:12vw; left:75vw; top:4vh; position: relative; font-size: 11px;">
-        <thead>
+        <input type="text" ng-model="search" class="form-control input-res" placeholder="Search for an user">
+        <thead style="text-align: center;">
             <tr>
-                <th ng-click="sort('id')" style="width:10%">Id
-                    <span class="sort-solid" ng-show="sortKey=='id'" ng-class="{'sort-up-solid':reverse,'sort-down-solid':!reverse}"></span>
+                <th ng-click="sort('id')" style="width:10%;">Id
+                    <span class="sort-solid" ng-show="sortKey=='id'" ng-class="{'sort-down-solid':reverse,'sort-up-solid':!reverse}"></span>
                 </th>
-                <th ng-click="sort('username')" style="width:30%">Username
-                    <span class="sort-solid" ng-show="sortKey=='username'" ng-class="{'sort-up-solid':reverse,'sort-down-solid':!reverse}"></span>
+                <th ng-click="sort('name')" style="width:30%;">Name
+                    <span class="sort-solid" ng-show="sortKey=='name'" ng-class="{'sort-down-solid':reverse,'sort-up-solid':!reverse}"></span>
                 </th>
-                <th ng-click="sort('email')" style="width:25%">Email
-                    <span class="sort-solid" ng-show="sortKey=='email'" ng-class="{'sort-up-solid':reverse,'sort-down-solid':!reverse}"></span>
+                <th ng-click="sort('email')" style="width:25%;">Email
+                    <span class="sort-solid" ng-show="sortKey=='email'" ng-class="{'sort-down-solid':reverse,'sort-up-solid':!reverse}"></span>
                 </th>
-                <th ng-click="sort('created_at')" style="width:25%">Created
-                    <span class="sort-solid" ng-show="sortKey=='created_at'" ng-class="{'sort-up-solid':reverse,'sort-down-solid':!reverse}"></span>
+                <th ng-click="sort('role[0].name')" style="width:25%;">Role
+                    <span class="sort-solid" ng-show="sortKey=='role[0].name'" ng-class="{'sort-down-solid':reverse,'sort-up-solid':!reverse}"></span>
                 </th>
                 <th style="width:10%" scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="user in filterData = (users | filter : search | orderBy:sortKey:reverse) | limitTo:10:10*(page-1) |orderBy:sortKey:reverse">
+            <tr style="text-align: center;" ng-repeat="user in filterData = (users | filter : search | orderBy:sortKey:reverse) | limitTo:10:10*(page-1) |orderBy:sortKey:reverse">
                 <td>{{user.id}}</td>
                 <td>{{user.name}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.created_at}}</td>
+                <td>{{user.role[0].name | capitalize}}</td>
+                <td>
+                    <span class="info-square-solid"></span>
+                    <span class="edit-solid"></span>
+                    <span class="trash-alt-solid"></span>
+                </td>
             </tr>
         </tbody>
     </table>
