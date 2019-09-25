@@ -59,13 +59,29 @@ input:focus::placeholder {
     -webkit-transition: ease-out 0.4s;
     -moz-transition: ease-out 0.4s;
     transition: ease-out 0.4s;
-    box-shadow: inset 0 0 0 0 whitesmoke;
+    box-shadow: inset 0 0 0 0.01px whitesmoke;
 }
 
 #custom-register:hover {
     box-shadow: inset 400px 0 0 0 whitesmoke;
     color: black !important;
     border-color: black !important;
+}
+
+#custom-register-close {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+}
+
+#custom-register-close:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
 }
 
 .login-form-section #custom {
