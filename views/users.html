@@ -25,7 +25,7 @@
         <tbody>
             <tr style="text-align: center;" ng-repeat="user in filterData = (users | filter : search | orderBy:sortKey:reverse) | limitTo:10:10*(page-1) |orderBy:sortKey:reverse">
                 <td>{{user.id}}</td>
-                <td>{{user.name}}</td>
+                <td>{{user.username}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.role[0].name | capitalize}}</td>
                 <td>
