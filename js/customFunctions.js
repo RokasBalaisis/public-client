@@ -6,7 +6,7 @@ document.addEventListener('click', function(event) {
                 $("#popupWindow").fadeToggle("slow", "linear");
             } else if ($(document.getElementById('popupWindow')).is(":visible")) {
                 $(".overlay").fadeToggle("slow", "linear");
-                $("#popupWindow").fadeToggle("slow", "linear");
+                $("#popupWindow").hide();
                 $(".alert.alert-danger").delay(500).hide();
             }
         }
