@@ -28,6 +28,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
             if (rejection.status === 500) {
                 console.log("it's a 500!");
             }
+            return rejection;
         }
     };
 }]);

@@ -1,5 +1,6 @@
 app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootScope', '$location', function($scope, ApiService, AuthService, $rootScope, $location) {
     $scope.name = 'Angular ';
+    $scope.hasRegisterFormErrors = false;
 
 
     $scope.login = function() {
@@ -20,9 +21,16 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
         var promise = ApiService.register($data);
 
         promise.then(function(response) {
-            console.log(response);
+            if (response.status == 401 || response.status == 422) {
+                $scope.hasRegisterFormErrors = true;
+                var regMssgArray = [];
+                angular.forEach(response.data, function(value, key) {
+                    this.push(value[0]);
+                }, regMssgArray);
+                $scope.registrationErrorMessages = regMssgArray;
+            }
         }, function(error) {
-            console.log(error);
+
         })
     };
 
@@ -33,5 +41,6 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
     $scope.redirectHome = function() {
         $location.path('');
     };
+
 
 }]);
