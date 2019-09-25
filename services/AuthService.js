@@ -18,20 +18,25 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
                 url: API + '/login',
                 data: JSON.stringify(credentials)
             }).then(function(response) {
-                    // On success, set the token and fire an event
-                    $rootScope.storeAuthToken(response.headers("Authorization"));
-                    $rootScope.$broadcast('auth-login-success', response.data);
 
+                    if (response.status == 422 || response.status == 401) {
+                        var regMssgArray = [];
+                        angular.forEach(response.data, function(value, key) {
+                            this.push(value[0]);
+                        }, regMssgArray);
+                        $rootScope.hasLoginFormErrors = true;
+                        $rootScope.loginErrorMessages = regMssgArray;
+                    } else {
+                        $rootScope.storeAuthToken(response.headers("Authorization"));
+                        $rootScope.$broadcast('auth-login-complete');
+                    }
+                    // On success, set the token and fire an event
                 },
                 function(response) {
                     // On login error, fire an event for the main app to pick
                     // up
                     $rootScope.$broadcast('auth-login-error', response);
-                }).finally(function() {
-                // Once the login process is complete (successful or 
-                // unsuccessful), fire this event
-                $rootScope.$broadcast('auth-login-complete');
-            });
+                })
         },
         logout: function() {
             $http({

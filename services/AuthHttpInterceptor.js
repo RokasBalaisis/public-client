@@ -23,7 +23,7 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
             // If the error is 401 related
             if (rejection.status === 401) {
                 $rootScope.deleteAuthToken();
-                return $rootScope.$broadcast('auth-logout');
+                $rootScope.$broadcast('auth-logout');
             }
             if (rejection.status === 500) {
                 console.log("it's a 500!");
