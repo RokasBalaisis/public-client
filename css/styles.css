@@ -189,7 +189,7 @@ body {
     cursor: pointer;
 }
 
-.usersContainer>table tr:not(:first-child):hover {
+.usersContainer>table tr:hover {
     background-color: rgba(0, 0, 0, 0.5) !important;
     color: rgb(197, 197, 197);
     font-weight: 700;
