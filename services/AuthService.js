@@ -34,9 +34,16 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
             });
         },
         logout: function() {
-            // On request to logout, fire the event to be picked up
-            // above
-            $rootScope.$broadcast('auth-logout');
+            $http({
+                method: 'POST',
+                url: API + '/logout'
+            }).then(function(response) {
+                    $rootScope.$broadcast('auth-logout', response.data);
+
+                },
+                function(response) {
+
+                })
         }
     }
 }]);
