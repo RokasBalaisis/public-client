@@ -7,8 +7,19 @@
     <div style="text-align: center; margin-top:2%;">
         <h3>Detailed user info</h3>
     </div>
-    <div style="text-align: center;">
-        <h4 style="color:whitesmoke;"><b>{{userDetails.username}}</b></h4>
+    <div ng-if="!userDetails" style="text-align: center; opacity: 0;">
+        <h4 style="color:whitesmoke;"><b>Dummy text</b></h4>
+    </div>
+    <div ng-if="userDetails" style="text-align: center;">
+        <h4 ng-bind="userDetails.username" style="color:whitesmoke;"><b></b></h4>
+    </div>
+    <div ng-if="!userDetails" style="margin:15%;">
+        <p>ID:</p>
+        <p>Role:</p>
+        <p>Email: <b>{{userDetails.email}}</b></p>
+        <p>Registration date:</p>
+        <p>Last info update date:</p>
+        <p>Status:</p>
     </div>
     <div ng-if="userDetails" style="margin:15%;">
         <p>ID: <b>{{userDetails.id}}</b></p>
