@@ -84,6 +84,61 @@ input:focus::placeholder {
     border-color: white !important;
 }
 
+#custom-user-info-close {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+    margin: 60% auto 0 auto !important;
+}
+
+#custom-user-info-close:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
+#custom-user-edit {
+    color: whitesmoke !important;
+    background-color: black !important;
+    border-color: whitesmoke !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px whitesmoke;
+    margin: 25% auto 0 auto !important;
+    width: 30% !important;
+    float: right;
+}
+
+#custom-user-edit:hover {
+    box-shadow: inset 400px 0 0 0 whitesmoke;
+    color: black !important;
+    border-color: black !important;
+}
+
+#custom-user-edit-close {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+    margin: 25% auto 0 auto !important;
+    width: 30% !important;
+    float: left;
+}
+
+#custom-user-edit-close:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
 .login-form-section #custom {
     color: whitesmoke !important;
     background-color: black !important;
@@ -343,6 +398,15 @@ body nav button {
     max-width: 100%;
     max-height: 100%;
     overflow: auto;
+}
+
+.popupWindow.user-info {
+    background-color: rgba(131, 130, 130, 0.911);
+}
+
+.popupWindow.user-edit {
+    background-color: rgba(131, 130, 130, 0.911);
+    height: 660px !important;
 }
 
 .overlay {

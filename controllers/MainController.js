@@ -48,8 +48,6 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
             $scope.registration_email = "";
             $scope.registration_password = "";
         }
-
-
     }
 
     $scope.successfulRegistrationEvent = function(response) {
