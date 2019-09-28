@@ -54,6 +54,17 @@ document.addEventListener('click', function(event) {
             document.getElementById('open-user-delete').removeAttribute("id");
     }
 
+    if (document.body.contains(document.getElementById('popupWindow-user-create'))) {
+        if (!document.getElementById('popupWindow-user-create').contains(event.target) && document.getElementById('custom-user-create-open') != null) {
+            if (document.getElementById('custom-user-create-open').contains(event.target)) {
+                eventFire(document.getElementById('custom-user-create-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-user-create')).is(":visible")) {
+                eventFire(document.getElementById('custom-user-create-close'), 'click');
+            }
+        }
+    }
+
+
 });
 
 

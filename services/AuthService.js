@@ -24,6 +24,7 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
                         $rootScope.loginErrorMessages = regMssgArray;
                     } else {
                         $rootScope.storeAuthToken(response.headers("Authorization"));
+                        $rootScope.successMessage = response.data['message'];
                         $rootScope.$broadcast('auth-login-complete');
                     }
                     // On success, set the token and fire an event
@@ -37,6 +38,7 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
         logout: function() {
             var promise = ApiService.logout();
             promise.then(function(response) {
+                    $rootScope.successMessage = response.data['message'];
                     $rootScope.$broadcast('auth-logout', response.data);
                 },
                 function(response) {

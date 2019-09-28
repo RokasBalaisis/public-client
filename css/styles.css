@@ -84,6 +84,54 @@ input:focus::placeholder {
     border-color: white !important;
 }
 
+#custom-user-create-open {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+}
+
+#custom-user-create-open:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
+#custom-user-create-close {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+}
+
+#custom-user-create {
+    color: whitesmoke !important;
+    background-color: black !important;
+    border-color: whitesmoke !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px whitesmoke;
+}
+
+#custom-user-create:hover {
+    box-shadow: inset 400px 0 0 0 whitesmoke;
+    color: black !important;
+    border-color: black !important;
+}
+
+#custom-user-create-close:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
 #custom-user-info-close {
     color: black !important;
     background-color: whitesmoke !important;
@@ -109,7 +157,7 @@ input:focus::placeholder {
     -moz-transition: ease-out 0.4s;
     transition: ease-out 0.4s;
     box-shadow: inset 0 0 0 0.01px whitesmoke;
-    margin: 25% auto 0 auto !important;
+    margin: 5% auto 0 auto !important;
     width: 30% !important;
     float: right;
 }
@@ -128,7 +176,7 @@ input:focus::placeholder {
     -moz-transition: ease-out 0.4s;
     transition: ease-out 0.4s;
     box-shadow: inset 0 0 0 0.01px black;
-    margin: 25% auto 0 auto !important;
+    margin: 5% auto 0 auto !important;
     width: 30% !important;
     float: left;
 }
@@ -285,10 +333,11 @@ body {
 .usersContainer>table {
     background-color: rgba(0, 0, 0, 0.8);
     color: whitesmoke;
-    width: 75vw;
-    margin: 0vh auto 1vh auto;
+    width: 75%;
+    margin: 0vh auto 0.1% auto;
     font-size: 14px;
     border-radius: 5px !important;
+    line-height: 1;
 }
 
 .usersContainer>table th:hover {
@@ -308,12 +357,12 @@ body {
     width: 100%;
     max-width: 12vw;
     box-sizing: border-box;
-    left: 75.4vw;
-    top: 0vh;
     position: relative;
     font-size: 11px;
     font-weight: 700;
     color: black;
+    float: right;
+    background-color: whitesmoke;
 }
 
 body nav {
@@ -386,7 +435,7 @@ body nav button {
     vertical-align: middle;
     -webkit-filter: invert(100%);
     filter: invert(100%);
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     background: url('/img/info-square-solid.svg') !important;
     cursor: pointer;
     transition: 0.5s ease-in;
@@ -446,7 +495,6 @@ body nav button {
 
 .popupWindow.user-edit {
     background-color: rgba(131, 130, 130, 0.911);
-    height: 660px !important;
 }
 
 .popupWindow.user-delete {

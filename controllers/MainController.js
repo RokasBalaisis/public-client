@@ -14,8 +14,8 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
     $scope.register = function() {
         var $data = {
             username: $scope.username,
-            registration_email: $scope.registration_email,
-            registration_password: $scope.registration_password
+            email: $scope.registration_email,
+            password: $scope.registration_password
         }
         var promise = ApiService.register($data);
 
@@ -52,7 +52,7 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
 
     $scope.successfulRegistrationEvent = function(response) {
         $scope.closeRegisterForm();
-        $scope.successMessage = response.data['message'];
+        $rootScope.successMessage = response.data['message'];
         $('#successful-alert').delay(400).fadeToggle("slow", "linear");
         $('#successful-alert').delay(1000).fadeToggle(800, "linear");
     }

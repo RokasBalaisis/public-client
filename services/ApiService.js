@@ -18,6 +18,9 @@ app.factory("ApiService", function($http, API) {
         users_detailed_info: function($id) {
             return $http.get(API + '/users/' + $id);
         },
+        users_create: function($data) {
+            return $http.post(API + '/users', JSON.stringify($data));
+        },
         users_edit: function($id, $data) {
             return $http.put(API + '/users/' + $id, JSON.stringify($data));
         },

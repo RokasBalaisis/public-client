@@ -7,7 +7,8 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
 
     $routeProvider
         .when('/', {
-            templateUrl: 'views/landing.html'
+            templateUrl: 'views/landing.html',
+            controller: 'MainController'
         })
         .when('/login', {
             templateUrl: 'views/login.html',
@@ -50,10 +51,14 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
     }
     $rootScope.$on('auth-login-complete', function() {
         $location.path('');
+        $('#successful-alert').delay(400).fadeToggle("slow", "linear");
+        $('#successful-alert').delay(1000).fadeToggle(800, "linear");
     });
     $rootScope.$on('auth-logout', function($route) {
         $rootScope.deleteAuthToken();
         $rootScope.loggedIn();
+        $('#successful-alert').delay(400).fadeToggle("slow", "linear");
+        $('#successful-alert').delay(1000).fadeToggle(800, "linear");
     });
     $rootScope.$on("$locationChangeStart", function(event, next, current) {});
     $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
