@@ -51,10 +51,10 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
     }
 
     $scope.successfulRegistrationEvent = function(response) {
-        $scope.successMessage = response.data['message'];
         $scope.closeRegisterForm();
-        $('#successful-alert').fadeToggle("slow", "linear");
-        $('#successful-alert').delay(1000).fadeToggle("slow", "linear");
+        $scope.successMessage = response.data['message'];
+        $('#successful-alert').delay(400).fadeToggle("slow", "linear");
+        $('#successful-alert').delay(1000).fadeToggle(800, "linear");
     }
 
     $scope.logout = function() {

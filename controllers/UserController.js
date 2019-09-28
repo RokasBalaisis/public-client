@@ -1,7 +1,8 @@
-app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', function($scope, ApiService, $rootScope, $location, $q) {
+app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'usersIndex', function($scope, ApiService, $rootScope, $location, $q, usersIndex) {
     $scope.name = 'Angular ';
     $scope.page = 1;
     $scope.hasEditFormErrors = false;
+    $scope.users = usersIndex.data.users;
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
@@ -31,9 +32,29 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
         //$scope.displayItems = $scope.totalItems.slice(startPos, startPos + 3);
     };
 
+    $scope.closeUserDeleteForm = function() {
+        $(".overlay").fadeToggle("slow", "linear");
+        if ($(document.getElementById('popupWindow-user-delete')).is(":visible")) {
+            $("#popupWindow-user-delete").hide();
+        } else {
+            $("#popupWindow-user-delete").show();
+
+        }
+    }
+
+    $scope.delete = function($id) {
+        var promise = ApiService.users_delete($id);
+        promise.then(function(response) {
+            $scope.index();
+            $scope.closeUserDeleteForm();
+            $scope.successMessage = response.data['message'];
+            $('#successful-alert').delay(400).fadeToggle("slow", "linear");
+            $('#successful-alert').delay(1000).fadeToggle(800, "linear");
+        })
+    }
+
 
     $scope.closeUserEditForm = function() {
-        var firstRun = true;
         var selection = "";
         $(".overlay").fadeToggle("slow", "linear");
         if ($(document.getElementById('popupWindow-user-edit')).is(":visible")) {
@@ -72,6 +93,9 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
                 $scope.hasEditFormErrors = false;
                 $scope.index();
                 $scope.closeUserEditForm();
+                $scope.successMessage = response.data['message'];
+                $('#successful-alert').delay(400).fadeToggle("slow", "linear");
+                $('#successful-alert').delay(1000).fadeToggle(800, "linear");
             }
         }, function(error) {
 
@@ -106,10 +130,6 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
             return response.data.roles;
         });
     }
-
-
-    if ($rootScope.loggedIn())
-        $scope.index();
 
 
 }]);

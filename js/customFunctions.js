@@ -39,6 +39,21 @@ document.addEventListener('click', function(event) {
             document.getElementById('open-user-edit').removeAttribute("id");
     }
 
+    if (document.body.contains(document.getElementById('popupWindow-user-delete'))) {
+        if (!document.getElementById('popupWindow-user-delete').contains(event.target) && document.getElementById('open-user-delete') != null) {
+            if (document.getElementById('open-user-delete').contains(event.target)) {
+                eventFire(document.getElementById('custom-user-delete-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-user-delete')).is(":visible")) {
+                eventFire(document.getElementById('custom-user-delete-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-user-delete')).is(":hidden")) {
+        if (document.getElementById('open-user-delete') != null)
+            document.getElementById('open-user-delete').removeAttribute("id");
+    }
+
 });
 
 
@@ -50,6 +65,10 @@ $(document).on('click', '.info-square-solid', function() {
 
 $(document).on('click', '.edit-solid', function() {
     $(this).attr("id", "open-user-edit");
+});
+
+$(document).on('click', '.trash-alt-solid', function() {
+    $(this).attr("id", "open-user-delete");
 });
 
 

@@ -15,7 +15,12 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
         })
         .when('/users', {
             templateUrl: 'views/users.html',
-            controller: 'UserController'
+            controller: 'UserController',
+            resolve: {
+                usersIndex: function(ApiService) {
+                    return ApiService.users_index();
+                }
+            }
         })
         .otherwise({
             redirectTo: '/'

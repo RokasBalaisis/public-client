@@ -1,4 +1,4 @@
-app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtHelper', function($rootScope, $http, $localStorage, API, jwtHelper) {
+app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtHelper', 'ApiService', function($rootScope, $http, $localStorage, API, jwtHelper, ApiService) {
     return {
 
         getToken: function() {
@@ -13,12 +13,8 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
             return true;
         },
         login: function(credentials) {
-            $http({
-                method: 'POST',
-                url: API + '/login',
-                data: JSON.stringify(credentials)
-            }).then(function(response) {
-
+            var promise = ApiService.login(credentials);
+            promise.then(function(response) {
                     if (response.status == 422 || response.status == 401) {
                         var regMssgArray = [];
                         angular.forEach(response.data, function(value, key) {
@@ -39,12 +35,9 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
                 })
         },
         logout: function() {
-            $http({
-                method: 'POST',
-                url: API + '/logout'
-            }).then(function(response) {
+            var promise = ApiService.logout();
+            promise.then(function(response) {
                     $rootScope.$broadcast('auth-logout', response.data);
-
                 },
                 function(response) {
 
