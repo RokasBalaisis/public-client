@@ -92,7 +92,7 @@ input:focus::placeholder {
     -moz-transition: ease-out 0.4s;
     transition: ease-out 0.4s;
     box-shadow: inset 0 0 0 0.01px black;
-    margin: 0 auto 5% auto !important;
+    margin: -5% auto 5% auto !important;
 }
 
 #custom-user-info-close:hover {
