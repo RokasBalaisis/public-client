@@ -19,7 +19,7 @@ app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtH
         login: function(credentials) {
             var promise = ApiService.login(credentials);
             promise.then(function(response) {
-                    if (response.status == 422 || response.status == 401) {
+                    if (response.status == 422 || response.status == 401 || response.status == 409) {
                         var regMssgArray = [];
                         angular.forEach(response.data, function(value, key) {
                             this.push(value[0]);
