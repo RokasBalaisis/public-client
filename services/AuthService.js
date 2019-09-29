@@ -1,6 +1,10 @@
 app.factory('AuthService', ['$rootScope', '$http', '$localStorage', 'API', 'jwtHelper', 'ApiService', function($rootScope, $http, $localStorage, API, jwtHelper, ApiService) {
     return {
 
+        getRole: function() {
+            return $rootScope.getRole();
+        },
+
         getToken: function() {
             // Get the token from storage 
             return $rootScope.getAuthToken();

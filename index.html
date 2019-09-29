@@ -24,6 +24,10 @@
 </head>
 
 <body ng-controller="MainController" id="body">
+    <!-- Error alert -->
+    <div id="error-alert" class="alert alert-danger" role="alert" style="width:40%; margin:auto; height:5.5%; position:absolute; top:0; left:0; right:0; bottom:50%; z-index: 1; display:none">
+        <span style="text-align: center; font-size:12px; "><div>{{errorMessage}}</div></span>
+    </div>
     <!-- Successful alert -->
     <div id="successful-alert" class="alert alert-success" role="alert" style="width:40%; margin:auto; height:5.5%; position:absolute; top:0; left:0; right:0; bottom:50%; z-index: 1; display:none">
         <span style="text-align: center; font-size:12px; "><div>{{successMessage}}</div></span>

@@ -55,6 +55,7 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
         $rootScope.successMessage = response.data['message'];
         $('#successful-alert').delay(400).fadeToggle("slow", "linear");
         $('#successful-alert').delay(1000).fadeToggle(800, "linear");
+
     }
 
     $scope.logout = function() {

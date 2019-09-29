@@ -4,7 +4,8 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
     $scope.hasEditFormErrors = false;
     $scope.hasCreateFormErrors = false;
     $scope.users = usersIndex.data.users;
-    $scope.totalItems = usersIndex.data.users.length;
+    if (usersIndex != null)
+        $scope.totalItems = usersIndex.data.users.length;
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa

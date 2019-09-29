@@ -5,6 +5,8 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     $httpProvider.interceptors.push('AuthHttpInterceptor');
 
+
+
     $routeProvider
         .when('/', {
             templateUrl: 'views/landing.html',
@@ -31,7 +33,7 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
     $locationProvider.html5Mode(true);
 }]);
 
-app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService', function($rootScope, $localStorage, $location, AuthService, ApiService) {
+app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService', 'jwtHelper', function($rootScope, $localStorage, $location, AuthService, ApiService, jwtHelper) {
     $rootScope.loggedIn = function() {
         var result = AuthService.isAuthenticated();
         return result;
@@ -43,6 +45,14 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
         var token_data = $localStorage.auth_token.split(" ");
         return token_data[1];
     }
+
+    $rootScope.getRole = function() {
+        if ($localStorage.auth_token == null)
+            return false;
+        var tokenPayload = jwtHelper.decodeToken($localStorage.auth_token);
+        return tokenPayload['role'];
+    }
+
     $rootScope.storeAuthToken = function(new_token) {
         return $localStorage.auth_token = new_token;
     }
@@ -56,18 +66,24 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
     });
     $rootScope.$on('auth-logout', function($route) {
         $rootScope.deleteAuthToken();
-        $rootScope.loggedIn();
-        $('#successful-alert').delay(400).fadeToggle("slow", "linear");
-        $('#successful-alert').delay(1000).fadeToggle(800, "linear");
+        $location.path('');
+        if ($rootScope.errorOccured == true) {
+            $rootScope.errorOccured = false;
+            $('#error-alert').delay(400).fadeToggle("slow", "linear");
+            $('#error-alert').delay(1000).fadeToggle(800, "linear");
+        } else {
+            $('#successful-alert').delay(400).fadeToggle("slow", "linear");
+            $('#successful-alert').delay(1000).fadeToggle(800, "linear");
+        }
     });
-    $rootScope.$on("$locationChangeStart", function(event, next, current) {});
+    $rootScope.$on('auth-invalid-role', function($route) {
+            $rootScope.errorOccured = false;
+            $('#error-alert').delay(400).fadeToggle("slow", "linear");
+            $('#error-alert').delay(1000).fadeToggle(800, "linear");
+        }),
+        $rootScope.$on("$locationChangeStart", function(event, next, current) {});
     $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
         $rootScope.currentPage = $location.path();
-        if ($rootScope.currentPage == '/login') {
-            $rootScope.navbarDisabled = true;
-        } else {
-            $rootScope.navbarDisabled = false;
-        }
 
         switch ($rootScope.currentPage) {
             case '/':
@@ -81,7 +97,7 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
                 break;
             case '/users':
                 $rootScope.navbarDisabled = false;
-                if ($rootScope.loggedIn() == false) {
+                if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
                     $location.path('');
                 }
                 break;

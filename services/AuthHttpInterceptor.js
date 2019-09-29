@@ -22,9 +22,15 @@ app.factory('AuthHttpInterceptor', ['$q', '$rootScope', '$localStorage', '$injec
         responseError: function(rejection) {
             // If the error is 401 related
             if (rejection.status === 401) {
+                $rootScope.errorOccured = true;
                 $rootScope.deleteAuthToken();
-                $rootScope.successMessage = rejection.data['message'];
+                $rootScope.errorMessage = rejection.data['message'];
                 $rootScope.$broadcast('auth-logout');
+            }
+            if (rejection.status === 403) {
+                $rootScope.errorOccured = true;
+                $rootScope.errorMessage = rejection.data['message'];
+                $rootScope.$broadcast('auth-invalid-role');
             }
             return rejection;
         }
