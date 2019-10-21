@@ -43,7 +43,7 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
             $scope.hasRegisterFormErrors = false;
             $("#popupWindow").hide();
         } else {
-            $("#popupWindow").show();
+            $("#popupWindow").delay(400).fadeToggle('slow');
             $scope.username = "";
             $scope.registration_email = "";
             $scope.registration_password = "";

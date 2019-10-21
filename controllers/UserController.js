@@ -43,7 +43,7 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
             $scope.password_create = "";
             $scope.hasCreateFormErrors = false;
         } else {
-            $("#popupWindow-user-create").show();
+            $("#popupWindow-user-create").delay(400).fadeToggle('slow');
             $scope.selectedRole_create = 1;
         }
     }
@@ -86,7 +86,7 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
         if ($(document.getElementById('popupWindow-user-delete')).is(":visible")) {
             $("#popupWindow-user-delete").hide();
         } else {
-            $("#popupWindow-user-delete").show();
+            $("#popupWindow-user-delete").delay(400).fadeToggle('slow');
 
         }
     }
@@ -114,7 +114,7 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
             $scope.password = "";
             $scope.hasEditFormErrors = false;
         } else {
-            $("#popupWindow-user-edit").show();
+            $("#popupWindow-user-edit").delay(400).fadeToggle('slow');
 
         }
     }
@@ -157,7 +157,7 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
             $("#popupWindow-user-info").hide();
             $scope.userDetails = "";
         } else {
-            $("#popupWindow-user-info").show();
+            $("#popupWindow-user-info").delay(400).fadeToggle('slow');
         }
     }
 
