@@ -9,6 +9,21 @@ app.factory("ApiService", function($http, API) {
         register: function($data) {
             return $http.post(API + '/register', JSON.stringify($data));
         },
+        mediatypes_index: function() {
+            return $http.get(API + '/mediatypes');
+        },
+        mediatypes_detailed_info: function($id) {
+            return $http.get(API + '/mediatypes/' + $id);
+        },
+        mediatypes_create: function($data) {
+            return $http.post(API + '/mediatypes', JSON.stringify($data));
+        },
+        mediatypes_edit: function($id, $data) {
+            return $http.put(API + '/mediatypes/' + $id, JSON.stringify($data));
+        },
+        mediatypes_delete: function($id) {
+            return $http.delete(API + '/mediatypes/' + $id);
+        },
         roles_index: function() {
             return $http.get(API + '/roles');
         },

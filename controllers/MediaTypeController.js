@@ -1,28 +1,28 @@
-app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'rolesIndex', function($scope, ApiService, $rootScope, $location, $q, rolesIndex) {
+app.controller('MediaTypeController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'mediatypesIndex', function($scope, ApiService, $rootScope, $location, $q, mediatypesIndex) {
     $scope.name = 'Angular ';
     $scope.page = 1;
     $scope.hasEditFormErrors = false;
     $scope.hasCreateFormErrors = false;
-    $scope.roles = rolesIndex.data.roles;
-    if (rolesIndex != null && typeof rolesIndex.data.roles !== 'undefined')
-        $scope.totalItems = rolesIndex.data.roles.length;
+    $scope.mediatypes = mediatypesIndex.data.media_types;
+    if (mediatypesIndex != null && typeof mediatypesIndex.data.media_types !== 'undefined')
+        $scope.totalItems = mediatypesIndex.data.media_types.length;
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     }
 
     $scope.index = function() {
-        $rootScope.currentPage = "roles";
-        var promise = ApiService.roles_index();
+        $rootScope.currentPage = "mediaTypes";
+        var promise = ApiService.mediatypes_index();
         promise.then(function(response) {
             if (response.data == null) {
                 $rootScope.$broadcast('auth-logout');
                 return $location.path('');
             }
-            $scope.totalItems = response.data.roles.length;
-            $scope.roles = response.data.roles;
+            $scope.totalItems = response.data.media_types.length;
+            $scope.mediatypes = response.data.media_types;
 
-            return response.data.roles;
+            return response.data.media_types;
         });
 
 
@@ -33,15 +33,14 @@ app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$locati
         var startPos = ($scope.page - 1) * 10;
     };
 
-    $scope.closeRoleCreateForm = function() {
+    $scope.closeMediatypeCreateForm = function() {
         $(".overlay").fadeToggle("slow", "linear");
-        if ($(document.getElementById('popupWindow-role-create')).is(":visible")) {
-            $("#popupWindow-role-create").hide();
+        if ($(document.getElementById('popupWindow-mediatype-create')).is(":visible")) {
+            $("#popupWindow-mediatype-create").hide();
             $scope.name_create = "";
             $scope.hasCreateFormErrors = false;
         } else {
-            $("#popupWindow-role-create").delay(400).fadeToggle('slow');
-            $scope.selectedRole_create = 1;
+            $("#popupWindow-mediatype-create").delay(400).fadeToggle('slow');
         }
     }
 
@@ -49,7 +48,7 @@ app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$locati
         var $data = {
             name: $scope.name_create.toLowerCase(),
         }
-        var promise = ApiService.roles_create($data);
+        var promise = ApiService.mediatypes_create($data);
 
         promise.then(function(response) {
             if (response.status == 401 || response.status == 422 || response.status == 409) {
@@ -64,7 +63,7 @@ app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$locati
             } else if (response.status == 201) {
                 $scope.hasCreateFormErrors = false;
                 $scope.index();
-                $scope.closeRoleCreateForm();
+                $scope.closeMediatypeCreateForm();
                 $scope.page = Math.ceil($scope.totalItems / 10);
                 $rootScope.successMessage = response.data['message'];
                 $('#successful-alert').delay(400).fadeToggle("slow", "linear");
@@ -75,21 +74,21 @@ app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$locati
         })
     };
 
-    $scope.closeRoleDeleteForm = function() {
+    $scope.closeMediatypeDeleteForm = function() {
         $(".overlay").fadeToggle("slow", "linear");
-        if ($(document.getElementById('popupWindow-role-delete')).is(":visible")) {
-            $("#popupWindow-role-delete").hide();
+        if ($(document.getElementById('popupWindow-mediatype-delete')).is(":visible")) {
+            $("#popupWindow-mediatype-delete").hide();
         } else {
-            $("#popupWindow-role-delete").delay(400).fadeToggle('slow');
+            $("#popupWindow-mediatype-delete").delay(400).fadeToggle('slow');
 
         }
     }
 
     $scope.delete = function($id) {
-        var promise = ApiService.roles_delete($id);
+        var promise = ApiService.mediatypes_delete($id);
         promise.then(function(response) {
             $scope.index();
-            $scope.closeRoleDeleteForm();
+            $scope.closeMediatypeDeleteForm();
             $rootScope.successMessage = response.data['message'];
             $('#successful-alert').delay(400).fadeToggle("slow", "linear");
             $('#successful-alert').delay(1000).fadeToggle(800, "linear");
@@ -97,15 +96,15 @@ app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$locati
     }
 
 
-    $scope.closeRoleEditForm = function() {
+    $scope.closeMediatypeEditForm = function() {
         var selection = "";
         $(".overlay").fadeToggle("slow", "linear");
-        if ($(document.getElementById('popupWindow-role-edit')).is(":visible")) {
-            $("#popupWindow-role-edit").hide();
+        if ($(document.getElementById('popupWindow-mediatype-edit')).is(":visible")) {
+            $("#popupWindow-mediatype-edit").hide();
             $scope.name = "";
             $scope.hasEditFormErrors = false;
         } else {
-            $("#popupWindow-role-edit").delay(400).fadeToggle('slow');
+            $("#popupWindow-mediatype-edit").delay(400).fadeToggle('slow');
 
         }
     }
@@ -114,7 +113,7 @@ app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$locati
         var $data = {
             name: $scope.name,
         }
-        var promise = ApiService.roles_edit($scope.roleDetails.id, $data);
+        var promise = ApiService.mediatypes_edit($scope.mediatypeDetails.id, $data);
 
         promise.then(function(response) {
             if (response.status == 401 || response.status == 422 || response.status == 409) {
@@ -129,7 +128,7 @@ app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$locati
             } else if (response.status == 200) {
                 $scope.hasEditFormErrors = false;
                 $scope.index();
-                $scope.closeRoleEditForm();
+                $scope.closeMediatypeEditForm();
                 $rootScope.successMessage = response.data['message'];
                 $('#successful-alert').delay(400).fadeToggle("slow", "linear");
                 $('#successful-alert').delay(1000).fadeToggle(800, "linear");
@@ -140,22 +139,21 @@ app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$locati
     };
 
 
-    $scope.getRoleDetails = function($id) {
-        var promise = ApiService.roles_detailed_info($id);
+    $scope.getMediatypeDetails = function($id) {
+        var promise = ApiService.mediatypes_detailed_info($id);
         promise.then(function(response) {
-            $scope.roleDetails = response.data.role;
-            $scope.name = response.data.role.name;
-            return response.data.role;
+            $scope.mediatypeDetails = response.data.media_type;
+            $scope.name = response.data.media_type.name;
+            return response.data.media_type;
         });
     }
 
-    $scope.getRoles = function() {
-        var promise = ApiService.roles_index();
+    $scope.getMediaTypes = function() {
+        var promise = ApiService.mediatypes_index();
         promise.then(function(response) {
-            $scope.roles = response.data.roles;
-            return response.data.roles;
+            $scope.mediatypes = response.data.media_types;
+            return response.data.media_types;
         });
     }
-
 
 }]);

@@ -116,6 +116,52 @@ document.addEventListener('click', function(event) {
             }
         }
     }
+
+    ///////////////////////////////// MEDIA TYPE CRUD /////////////////////////////////
+
+    if (document.body.contains(document.getElementById('popupWindow-mediatype-edit'))) {
+        if (!document.getElementById('popupWindow-mediatype-edit').contains(event.target)) {
+            if (typeof $(document).find('.edit-solid.mediatype.active')[0] !== 'undefined') {
+                if ($(document).find('.edit-solid.mediatype.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-mediatype-edit-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-mediatype-edit')).is(":visible")) {
+                eventFire(document.getElementById('custom-mediatype-edit-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-mediatype-edit')).is(":hidden")) {
+        if ($(document).find('.edit-solid.mediatype.active') != null)
+            $(document).find('.edit-solid.mediatype.active').removeClass("active");
+    }
+
+
+    if (document.body.contains(document.getElementById('popupWindow-mediatype-delete'))) {
+        if (!document.getElementById('popupWindow-mediatype-delete').contains(event.target)) {
+            if (typeof $(document).find('.trash-alt-solid.mediatype.active')[0] !== 'undefined') {
+                if ($(document).find('.trash-alt-solid.mediatype.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-mediatype-delete-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-mediatype-delete')).is(":visible")) {
+                eventFire(document.getElementById('custom-mediatype-delete-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-mediatype-delete')).is(":hidden")) {
+        if ($(document).find('.trash-alt-solid.mediatype.active') != null)
+            $(document).find('.trash-alt-solid.mediatype.active').removeClass("active");
+    }
+
+
+    if (document.body.contains(document.getElementById('popupWindow-mediatype-create'))) {
+        if (!document.getElementById('popupWindow-mediatype-create').contains(event.target) && document.getElementById('custom-mediatype-create-open') != null) {
+            if (document.getElementById('custom-mediatype-create-open').contains(event.target)) {
+                eventFire(document.getElementById('custom-mediatype-create-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-mediatype-create')).is(":visible")) {
+                eventFire(document.getElementById('custom-mediatype-create-close'), 'click');
+            }
+        }
+    }
 });
 
 
@@ -139,6 +185,14 @@ $(document).on('click', '.edit-solid.role', function() {
 });
 
 $(document).on('click', '.trash-alt-solid.role', function() {
+    $(this).addClass('active');
+});
+
+$(document).on('click', '.edit-solid.mediatype', function() {
+    $(this).addClass('active');
+});
+
+$(document).on('click', '.trash-alt-solid.mediatype', function() {
     $(this).addClass('active');
 });
 

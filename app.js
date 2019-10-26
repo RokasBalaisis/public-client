@@ -34,6 +34,15 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
                 }
             }
         })
+        .when('/mediatypes', {
+            templateUrl: 'views/mediatypes.html',
+            controller: 'MediaTypeController',
+            resolve: {
+                mediatypesIndex: function(ApiService) {
+                    return ApiService.mediatypes_index();
+                }
+            }
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -111,6 +120,12 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
                 }
                 break;
             case '/roles':
+                $rootScope.navbarDisabled = false;
+                if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
+                    $location.path('');
+                }
+                break;
+            case '/mediatypes':
                 $rootScope.navbarDisabled = false;
                 if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
                     $location.path('');

@@ -1,0 +1,103 @@
+<!-- Media type edit modal -->
+<div id="popupWindow-mediatype-edit" class="popupWindow mediatype-edit">
+    <div style="text-align: center; margin-top:2%;">
+        <h3>Edit media type</h3>
+    </div>
+    <div ng-if="hasEditFormErrors == true" class="alert alert-danger" role="alert" style="width:80%; margin:15px auto -90px auto; height:100px;">
+        <span style="text-align: center; font-size:12px;" ng-repeat="message in EditFormErrorMessages"><div>{{message}}</div></span>
+    </div>
+    <div ng-if="hasEditFormErrors == false" class="alert alert-danger" role="alert" style="width:80%; margin:15px auto -90px auto; height:100px; opacity: 0">
+        <span style="text-align: center; font-size:12px;" ng-repeat="message in EditFormErrorMessages"><div>{{message}}</div></span>
+    </div>
+    <form style="width:80%; margin-left:10%; margin-right:10%; margin-top:25%; margin-bottom:5%;" ng-enter="edit(name)">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" ng-model="name" aria-describedby="nameHelp" placeholder="Enter name" ng-value="mediatypeDetails.name | capitalize">
+        </div>
+        <button type="submit" id="custom-mediatype-edit" class="btn btn-primary" style="margin: 25% auto 0 auto; display:block; position: relative; top: 20%; width: 60%;" ng-click="edit(name)">Update</button>
+        <button id="custom-mediatype-edit-close" class="btn btn-primary" style="margin: 5% auto 0 auto; display:block; position: relative; width: 60%;" ng-click="closeMediatypeEditForm()">Close</button>
+    </form>
+</div>
+<!----------->
+
+<!-- Media type delete confirmation modal -->
+<div id="popupWindow-mediatype-delete" class="popupWindow mediatype-delete">
+    <div style="text-align: center; margin-top:5%; margin-bottom: -15%">
+        <h3>Are you sure you want to delete?</h3>
+    </div>
+    <div style="text-align: center; margin-top:20%; margin-bottom: -20%; height: 5%;">
+        <h4 style="color:whitesmoke;"><b>{{mediatypeDetails.name | capitalize}}</b></h4>
+    </div>
+    <button type="submit" id="custom-mediatype-delete" class="btn btn-primary" style="margin: 25% auto 0 auto; display:block; position: relative; top: 20%; width: 60%;" ng-click="delete(mediatypeDetails.id)">Yes</button>
+    <button id="custom-mediatype-delete-close" class="btn btn-primary" style="margin: 5% auto 0 auto; display:block; position: relative; width: 60%;" ng-click="closeMediatypeDeleteForm()">No</button>
+</div>
+
+<!----------->
+
+<!-- Media type create modal -->
+<div id="popupWindow-mediatype-create" class="popupWindow mediatype-create">
+    <div style="text-align: center; margin-top:2%;">
+        <h3>Create new media type</h3>
+    </div>
+    <div ng-if="hasCreateFormErrors == true" class="alert alert-danger" role="alert" style="width:80%; margin:15px auto -90px auto; height:100px;">
+        <span style="text-align: center; font-size:12px;" ng-repeat="message in CreateFormErrorMessages"><div>{{message}}</div></span>
+    </div>
+    <div ng-if="hasCreateFormErrors == false" class="alert alert-danger" role="alert" style="width:80%; margin:15px auto -90px auto; height:100px; opacity: 0">
+        <span style="text-align: center; font-size:12px;" ng-repeat="message in CreateFormErrorMessages"><div>{{message}}</div></span>
+    </div>
+    <form style="width:80%; margin-left:10%; margin-right:10%; margin-top:25%; margin-bottom:5%;" ng-enter="create(name_create)">
+        <div class="form-group">
+            <label for="name_create">Name</label>
+            <input type="text" class="form-control" id="name_create" ng-model="name_create" aria-describedby="name_createHelp" placeholder="Enter name">
+        </div>
+        <button type="submit" id="custom-mediatype-create" class="btn btn-primary" style="margin: 5% auto 0 auto; display:block; position: relative; float:right; width:30%;" ng-click="create(name_create)">Create</button>
+        <button id="custom-mediatype-create-close" class="btn btn-primary" style="margin: 5% auto 0 auto; display:block; position: relative; width: 30%; float:left;" ng-click="closeMediatypeCreateForm()">Close</button>
+    </form>
+</div>
+<!----------->
+
+<!-- Page Content -->
+<div class="overlay"></div>
+<div class="mediatypesContainer">
+    <div class="mediatypesContainerHeader">
+        <h2>Media types list</h2>
+    </div>
+    <table class="table table-borderless table-hover" style="table-layout: fixed;">
+        <div style="width:75%; margin: 1% auto;">
+            <button id="custom-mediatype-create-open" class="btn btn-primary" style="font-size:11px; font-weight: 900;">Create new media type</button>
+            <input type="text" ng-model="search" class="form-control input-res" placeholder="Search for a media type">
+        </div>
+        <thead style="text-align: center;">
+            <tr>
+                <th ng-click="sort('id')" style="width:10%;">Id
+                    <span class="sort-solid" ng-show="sortKey=='id'" ng-class="{'sort-down-solid':reverse,'sort-up-solid':!reverse}"></span>
+                </th>
+                <th ng-click="sort('name')" style="width:30%;">Name
+                    <span class="sort-solid" ng-show="sortKey=='name'" ng-class="{'sort-down-solid':reverse,'sort-up-solid':!reverse}"></span>
+                </th>
+                <th ng-click="sort('created_at')" style="width:25%;">Created
+                    <span class="sort-solid" ng-show="sortKey=='created_at'" ng-class="{'sort-down-solid':reverse,'sort-up-solid':!reverse}"></span>
+                </th>
+                <th ng-click="sort('updated_at')" style="width:25%;">Updated
+                    <span class="sort-solid" ng-show="sortKey=='updated_at'" ng-class="{'sort-down-solid':reverse,'sort-up-solid':!reverse}"></span>
+                </th>
+                <th style="width:10%" scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align: center;" ng-repeat="mediatype in filterData = (mediatypes | filter : search | orderBy:sortKey:reverse) | limitTo:10:10*(page-1) |orderBy:sortKey:reverse">
+                <td>{{mediatype.id}}</td>
+                <td>{{mediatype.name | capitalize}}</td>
+                <td>{{mediatype.created_at}}</td>
+                <td>{{mediatype.updated_at}}</td>
+                <td>
+                    <span class="edit-solid mediatype" ng-click="getMediatypeDetails(mediatype.id)"></span>
+                    <span class="trash-alt-solid mediatype" ng-click="getMediatypeDetails(mediatype.id)"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <ul uib-pagination total-items="filterData.length" ng-model="page" ng-change="pageChanged()" previous-text="&lsaquo;" next-text="&rsaquo;" items-per-page=10 max-size="3" boundary-link-numbers="true" rotate="true" force-ellipses="true"></ul>
+    </div>
+</div>
