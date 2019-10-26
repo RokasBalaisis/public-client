@@ -12,6 +12,18 @@ app.factory("ApiService", function($http, API) {
         roles_index: function() {
             return $http.get(API + '/roles');
         },
+        roles_detailed_info: function($id) {
+            return $http.get(API + '/roles/' + $id);
+        },
+        roles_create: function($data) {
+            return $http.post(API + '/roles', JSON.stringify($data));
+        },
+        roles_edit: function($id, $data) {
+            return $http.put(API + '/roles/' + $id, JSON.stringify($data));
+        },
+        roles_delete: function($id) {
+            return $http.delete(API + '/roles/' + $id);
+        },
         users_index: function() {
             return $http.get(API + '/users');
         },

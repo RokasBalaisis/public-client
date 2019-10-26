@@ -1,4 +1,5 @@
 document.addEventListener('click', function(event) {
+    ///////////////////////////////// USER CRUD /////////////////////////////////
     if (document.body.contains(document.getElementById('popupWindow'))) {
         if (!document.getElementById('popupWindow').contains(event.target)) {
             if (document.getElementById('open-register').contains(event.target)) {
@@ -10,9 +11,10 @@ document.addEventListener('click', function(event) {
     }
 
     if (document.body.contains(document.getElementById('popupWindow-user-info'))) {
-        if (!document.getElementById('popupWindow-user-info').contains(event.target) && document.getElementById('open-user-info') != null) {
-            if (document.getElementById('open-user-info').contains(event.target)) {
-                eventFire(document.getElementById('custom-user-info-close'), 'click');
+        if (!document.getElementById('popupWindow-user-info').contains(event.target)) {
+            if (typeof $(document).find('.info-square-solid.user.active')[0] !== 'undefined') {
+                if ($(document).find('.info-square-solid.user.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-user-info-close'), 'click');
             } else if ($(document.getElementById('popupWindow-user-info')).is(":visible")) {
                 eventFire(document.getElementById('custom-user-info-close'), 'click');
             }
@@ -20,14 +22,16 @@ document.addEventListener('click', function(event) {
     }
 
     if ($(document.getElementById('popupWindow-user-info')).is(":hidden")) {
-        if (document.getElementById('open-user-info') != null)
-            document.getElementById('open-user-info').removeAttribute("id");
+        if ($(document).find('.info-square-solid.user.active') != null)
+            $(document).find('.info-square-solid.user.active').removeClass("active");
     }
 
+
     if (document.body.contains(document.getElementById('popupWindow-user-edit'))) {
-        if (!document.getElementById('popupWindow-user-edit').contains(event.target) && document.getElementById('open-user-edit') != null) {
-            if (document.getElementById('open-user-edit').contains(event.target)) {
-                eventFire(document.getElementById('custom-user-edit-close'), 'click');
+        if (!document.getElementById('popupWindow-user-edit').contains(event.target)) {
+            if (typeof $(document).find('.edit-solid.user.active')[0] !== 'undefined') {
+                if ($(document).find('.edit-solid.user.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-user-edit-close'), 'click');
             } else if ($(document.getElementById('popupWindow-user-edit')).is(":visible")) {
                 eventFire(document.getElementById('custom-user-edit-close'), 'click');
             }
@@ -35,14 +39,16 @@ document.addEventListener('click', function(event) {
     }
 
     if ($(document.getElementById('popupWindow-user-edit')).is(":hidden")) {
-        if (document.getElementById('open-user-edit') != null)
-            document.getElementById('open-user-edit').removeAttribute("id");
+        if ($(document).find('.edit-solid.user.active') != null)
+            $(document).find('.edit-solid.user.active').removeClass("active");
     }
 
+
     if (document.body.contains(document.getElementById('popupWindow-user-delete'))) {
-        if (!document.getElementById('popupWindow-user-delete').contains(event.target) && document.getElementById('open-user-delete') != null) {
-            if (document.getElementById('open-user-delete').contains(event.target)) {
-                eventFire(document.getElementById('custom-user-delete-close'), 'click');
+        if (!document.getElementById('popupWindow-user-delete').contains(event.target)) {
+            if (typeof $(document).find('.trash-alt-solid.user.active')[0] !== 'undefined') {
+                if ($(document).find('.trash-alt-solid.user.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-user-delete-close'), 'click');
             } else if ($(document.getElementById('popupWindow-user-delete')).is(":visible")) {
                 eventFire(document.getElementById('custom-user-delete-close'), 'click');
             }
@@ -50,8 +56,8 @@ document.addEventListener('click', function(event) {
     }
 
     if ($(document.getElementById('popupWindow-user-delete')).is(":hidden")) {
-        if (document.getElementById('open-user-delete') != null)
-            document.getElementById('open-user-delete').removeAttribute("id");
+        if ($(document).find('.trash-alt-solid.user.active') != null)
+            $(document).find('.trash-alt-solid.user.active').removeClass("active");
     }
 
     if (document.body.contains(document.getElementById('popupWindow-user-create'))) {
@@ -65,22 +71,78 @@ document.addEventListener('click', function(event) {
     }
 
 
+    ///////////////////////////////// ROLE CRUD /////////////////////////////////
+
+    if (document.body.contains(document.getElementById('popupWindow-role-edit'))) {
+        if (!document.getElementById('popupWindow-role-edit').contains(event.target)) {
+            if (typeof $(document).find('.edit-solid.role.active')[0] !== 'undefined') {
+                if ($(document).find('.edit-solid.role.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-role-edit-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-role-edit')).is(":visible")) {
+                eventFire(document.getElementById('custom-role-edit-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-role-edit')).is(":hidden")) {
+        if ($(document).find('.edit-solid.role.active') != null)
+            $(document).find('.edit-solid.role.active').removeClass("active");
+    }
+
+
+    if (document.body.contains(document.getElementById('popupWindow-role-delete'))) {
+        if (!document.getElementById('popupWindow-role-delete').contains(event.target)) {
+            if (typeof $(document).find('.trash-alt-solid.role.active')[0] !== 'undefined') {
+                if ($(document).find('.trash-alt-solid.role.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-role-delete-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-role-delete')).is(":visible")) {
+                eventFire(document.getElementById('custom-role-delete-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-role-delete')).is(":hidden")) {
+        if ($(document).find('.trash-alt-solid.role.active') != null)
+            $(document).find('.trash-alt-solid.role.active').removeClass("active");
+    }
+
+
+    if (document.body.contains(document.getElementById('popupWindow-role-create'))) {
+        if (!document.getElementById('popupWindow-role-create').contains(event.target) && document.getElementById('custom-role-create-open') != null) {
+            if (document.getElementById('custom-role-create-open').contains(event.target)) {
+                eventFire(document.getElementById('custom-role-create-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-role-create')).is(":visible")) {
+                eventFire(document.getElementById('custom-role-create-close'), 'click');
+            }
+        }
+    }
 });
 
 
 
 
-$(document).on('click', '.info-square-solid', function() {
-    $(this).attr("id", "open-user-info");
+$(document).on('click', '.info-square-solid.user', function() {
+    $(this).addClass('active');
 });
 
-$(document).on('click', '.edit-solid', function() {
-    $(this).attr("id", "open-user-edit");
+$(document).on('click', '.edit-solid.user', function() {
+    $(this).addClass('active');
 });
 
-$(document).on('click', '.trash-alt-solid', function() {
-    $(this).attr("id", "open-user-delete");
+$(document).on('click', '.trash-alt-solid.user', function() {
+    $(this).addClass('active');
 });
+
+
+$(document).on('click', '.edit-solid.role', function() {
+    $(this).addClass('active');
+});
+
+$(document).on('click', '.trash-alt-solid.role', function() {
+    $(this).addClass('active');
+});
+
+
 
 
 function eventFire(el, etype) {

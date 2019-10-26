@@ -25,6 +25,15 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
                 }
             }
         })
+        .when('/roles', {
+            templateUrl: 'views/roles.html',
+            controller: 'RoleController',
+            resolve: {
+                rolesIndex: function(ApiService) {
+                    return ApiService.roles_index();
+                }
+            }
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -96,6 +105,12 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
                 $rootScope.navbarDisabled = true;
                 break;
             case '/users':
+                $rootScope.navbarDisabled = false;
+                if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
+                    $location.path('');
+                }
+                break;
+            case '/roles':
                 $rootScope.navbarDisabled = false;
                 if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
                     $location.path('');

@@ -1,28 +1,28 @@
-app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'usersIndex', function($scope, ApiService, $rootScope, $location, $q, usersIndex) {
+app.controller('RoleController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'rolesIndex', function($scope, ApiService, $rootScope, $location, $q, rolesIndex) {
     $scope.name = 'Angular ';
     $scope.page = 1;
     $scope.hasEditFormErrors = false;
     $scope.hasCreateFormErrors = false;
-    $scope.users = usersIndex.data.users;
-    if (usersIndex != null && typeof usersIndex.data.users !== 'undefined')
-        $scope.totalItems = usersIndex.data.users.length;
+    $scope.roles = rolesIndex.data.roles;
+    if (rolesIndex != null)
+        $scope.totalItems = rolesIndex.data.roles.length;
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     }
 
     $scope.index = function() {
-        $rootScope.currentPage = "users";
-        var promise = ApiService.users_index();
+        $rootScope.currentPage = "roles";
+        var promise = ApiService.roles_index();
         promise.then(function(response) {
             if (response.data == null) {
                 $rootScope.$broadcast('auth-logout');
                 return $location.path('');
             }
-            $scope.totalItems = response.data.users.length;
-            $scope.users = response.data.users;
+            $scope.totalItems = response.data.roles.length;
+            $scope.roles = response.data.roles;
 
-            return response.data.users;
+            return response.data.roles;
         });
 
 
@@ -33,29 +33,23 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
         var startPos = ($scope.page - 1) * 10;
     };
 
-    $scope.closeUserCreateForm = function() {
+    $scope.closeRoleCreateForm = function() {
         $(".overlay").fadeToggle("slow", "linear");
-        if ($(document.getElementById('popupWindow-user-create')).is(":visible")) {
-            $("#popupWindow-user-create").hide();
-            $scope.username_create = "";
-            $scope.email_create = "";
-            $scope.selectedRole_create = 1;
-            $scope.password_create = "";
+        if ($(document.getElementById('popupWindow-role-create')).is(":visible")) {
+            $("#popupWindow-role-create").hide();
+            $scope.name_create = "";
             $scope.hasCreateFormErrors = false;
         } else {
-            $("#popupWindow-user-create").delay(400).fadeToggle('slow');
+            $("#popupWindow-role-create").delay(400).fadeToggle('slow');
             $scope.selectedRole_create = 1;
         }
     }
 
     $scope.create = function() {
         var $data = {
-            username: $scope.username_create,
-            email: $scope.email_create,
-            role_id: $scope.selectedRole_create,
-            password: $scope.password_create
+            name: $scope.name_create.toLowerCase(),
         }
-        var promise = ApiService.users_create($data);
+        var promise = ApiService.roles_create($data);
 
         promise.then(function(response) {
             if (response.status == 401 || response.status == 422 || response.status == 409) {
@@ -70,7 +64,7 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
             } else if (response.status == 201) {
                 $scope.hasCreateFormErrors = false;
                 $scope.index();
-                $scope.closeUserCreateForm();
+                $scope.closeRoleCreateForm();
                 $scope.page = Math.ceil($scope.totalItems / 10);
                 $rootScope.successMessage = response.data['message'];
                 $('#successful-alert').delay(400).fadeToggle("slow", "linear");
@@ -81,21 +75,21 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
         })
     };
 
-    $scope.closeUserDeleteForm = function() {
+    $scope.closeRoleDeleteForm = function() {
         $(".overlay").fadeToggle("slow", "linear");
-        if ($(document.getElementById('popupWindow-user-delete')).is(":visible")) {
-            $("#popupWindow-user-delete").hide();
+        if ($(document.getElementById('popupWindow-role-delete')).is(":visible")) {
+            $("#popupWindow-role-delete").hide();
         } else {
-            $("#popupWindow-user-delete").delay(400).fadeToggle('slow');
+            $("#popupWindow-role-delete").delay(400).fadeToggle('slow');
 
         }
     }
 
     $scope.delete = function($id) {
-        var promise = ApiService.users_delete($id);
+        var promise = ApiService.roles_delete($id);
         promise.then(function(response) {
             $scope.index();
-            $scope.closeUserDeleteForm();
+            $scope.closeRoleDeleteForm();
             $rootScope.successMessage = response.data['message'];
             $('#successful-alert').delay(400).fadeToggle("slow", "linear");
             $('#successful-alert').delay(1000).fadeToggle(800, "linear");
@@ -103,30 +97,24 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
     }
 
 
-    $scope.closeUserEditForm = function() {
+    $scope.closeRoleEditForm = function() {
         var selection = "";
         $(".overlay").fadeToggle("slow", "linear");
-        if ($(document.getElementById('popupWindow-user-edit')).is(":visible")) {
-            $("#popupWindow-user-edit").hide();
-            $scope.username = "";
-            $scope.email = "";
-            $scope.selectedRole = "";
-            $scope.password = "";
+        if ($(document.getElementById('popupWindow-role-edit')).is(":visible")) {
+            $("#popupWindow-role-edit").hide();
+            $scope.name = "";
             $scope.hasEditFormErrors = false;
         } else {
-            $("#popupWindow-user-edit").delay(400).fadeToggle('slow');
+            $("#popupWindow-role-edit").delay(400).fadeToggle('slow');
 
         }
     }
 
     $scope.edit = function() {
         var $data = {
-            username: $scope.username,
-            email: $scope.email,
-            role_id: $scope.selectedRole.id,
-            password: $scope.password
+            name: $scope.name,
         }
-        var promise = ApiService.users_edit($scope.userDetails.id, $data);
+        var promise = ApiService.roles_edit($scope.roleDetails.id, $data);
 
         promise.then(function(response) {
             if (response.status == 401 || response.status == 422 || response.status == 409) {
@@ -141,7 +129,7 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
             } else if (response.status == 200) {
                 $scope.hasEditFormErrors = false;
                 $scope.index();
-                $scope.closeUserEditForm();
+                $scope.closeRoleEditForm();
                 $rootScope.successMessage = response.data['message'];
                 $('#successful-alert').delay(400).fadeToggle("slow", "linear");
                 $('#successful-alert').delay(1000).fadeToggle(800, "linear");
@@ -151,24 +139,13 @@ app.controller('UserController', ['$scope', 'ApiService', '$rootScope', '$locati
         })
     };
 
-    $scope.closeUserDetailsForm = function() {
-        $(".overlay").fadeToggle("slow", "linear");
-        if ($(document.getElementById('popupWindow-user-info')).is(":visible")) {
-            $("#popupWindow-user-info").hide();
-            $scope.userDetails = "";
-        } else {
-            $("#popupWindow-user-info").delay(400).fadeToggle('slow');
-        }
-    }
 
-    $scope.getUserDetails = function($id) {
-        var promise = ApiService.users_detailed_info($id);
+    $scope.getRoleDetails = function($id) {
+        var promise = ApiService.roles_detailed_info($id);
         promise.then(function(response) {
-            $scope.userDetails = response.data.user;
-            $scope.selectedRole = response.data.user.role[0];
-            $scope.username = response.data.user.username;
-            $scope.email = response.data.user.email;
-            return response.data.user;
+            $scope.roleDetails = response.data.role;
+            $scope.name = response.data.role.name;
+            return response.data.role;
         });
     }
 

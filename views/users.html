@@ -71,7 +71,7 @@
         <h3>Are you sure you want to delete?</h3>
     </div>
     <div style="text-align: center; margin-top:20%; margin-bottom: -20%; height: 5%;">
-        <h4 style="color:whitesmoke;"><b>{{userDetails.username}}</b></h4>
+        <h4 style="color:whitesmoke;"><b>{{userDetails.username | capitalize}}</b></h4>
     </div>
     <button type="submit" id="custom-user-delete" class="btn btn-primary" style="margin: 25% auto 0 auto; display:block; position: relative; top: 20%; width: 60%;" ng-click="delete(userDetails.id)">Yes</button>
     <button id="custom-user-delete-close" class="btn btn-primary" style="margin: 5% auto 0 auto; display:block; position: relative; width: 60%;" ng-click="closeUserDeleteForm()">No</button>
@@ -148,9 +148,9 @@
                 <td>{{user.email}}</td>
                 <td>{{user.role[0].name | capitalize}}</td>
                 <td>
-                    <span class="info-square-solid" ng-click="getUserDetails(user.id)"></span>
-                    <span class="edit-solid" ng-click="getRoles(); getUserDetails(user.id)"></span>
-                    <span class="trash-alt-solid" ng-click="getUserDetails(user.id)"></span>
+                    <span class="info-square-solid user" ng-click="getUserDetails(user.id)"></span>
+                    <span class="edit-solid user" ng-click="getRoles(); getUserDetails(user.id)"></span>
+                    <span class="trash-alt-solid user" ng-click="getUserDetails(user.id)"></span>
                 </td>
             </tr>
         </tbody>
