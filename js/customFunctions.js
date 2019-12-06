@@ -1,5 +1,4 @@
 document.addEventListener('click', function(event) {
-    ///////////////////////////////// USER CRUD /////////////////////////////////
     if (document.body.contains(document.getElementById('popupWindow'))) {
         if (!document.getElementById('popupWindow').contains(event.target)) {
             if (document.getElementById('open-register').contains(event.target)) {
@@ -9,6 +8,7 @@ document.addEventListener('click', function(event) {
             }
         }
     }
+    ///////////////////////////////// USER CRUD /////////////////////////////////
 
     if (document.body.contains(document.getElementById('popupWindow-user-info'))) {
         if (!document.getElementById('popupWindow-user-info').contains(event.target)) {
@@ -162,6 +162,70 @@ document.addEventListener('click', function(event) {
             }
         }
     }
+
+    ///////////////////////////////// CATEGORY CRUD /////////////////////////////////
+
+    if (document.body.contains(document.getElementById('popupWindow-category-info'))) {
+        if (!document.getElementById('popupWindow-category-info').contains(event.target)) {
+            if (typeof $(document).find('.info-square-solid.category.active')[0] !== 'undefined') {
+                if ($(document).find('.info-square-solid.category.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-category-info-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-category-info')).is(":visible")) {
+                eventFire(document.getElementById('custom-category-info-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-category-info')).is(":hidden")) {
+        if ($(document).find('.info-square-solid.category.active') != null)
+            $(document).find('.info-square-solid.category.active').removeClass("active");
+    }
+
+
+    if (document.body.contains(document.getElementById('popupWindow-category-edit'))) {
+        if (!document.getElementById('popupWindow-category-edit').contains(event.target)) {
+            if (typeof $(document).find('.edit-solid.category.active')[0] !== 'undefined') {
+                if ($(document).find('.edit-solid.category.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-category-edit-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-category-edit')).is(":visible")) {
+                eventFire(document.getElementById('custom-category-edit-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-category-edit')).is(":hidden")) {
+        if ($(document).find('.edit-solid.category.active') != null)
+            $(document).find('.edit-solid.category.active').removeClass("active");
+    }
+
+
+    if (document.body.contains(document.getElementById('popupWindow-category-delete'))) {
+        if (!document.getElementById('popupWindow-category-delete').contains(event.target)) {
+            if (typeof $(document).find('.trash-alt-solid.category.active')[0] !== 'undefined') {
+                if ($(document).find('.trash-alt-solid.category.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-category-delete-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-category-delete')).is(":visible")) {
+                eventFire(document.getElementById('custom-category-delete-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-category-delete')).is(":hidden")) {
+        if ($(document).find('.trash-alt-solid.category.active') != null)
+            $(document).find('.trash-alt-solid.category.active').removeClass("active");
+    }
+
+    if (document.body.contains(document.getElementById('popupWindow-category-create'))) {
+        if (!document.getElementById('popupWindow-category-create').contains(event.target) && document.getElementById('custom-category-create-open') != null) {
+            if (document.getElementById('custom-category-create-open').contains(event.target)) {
+                eventFire(document.getElementById('custom-category-create-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-category-create')).is(":visible")) {
+                eventFire(document.getElementById('custom-category-create-close'), 'click');
+            }
+        }
+    }
+
+
 });
 
 
@@ -188,6 +252,7 @@ $(document).on('click', '.trash-alt-solid.role', function() {
     $(this).addClass('active');
 });
 
+
 $(document).on('click', '.edit-solid.mediatype', function() {
     $(this).addClass('active');
 });
@@ -197,6 +262,17 @@ $(document).on('click', '.trash-alt-solid.mediatype', function() {
 });
 
 
+$(document).on('click', '.info-square-solid.category', function() {
+    $(this).addClass('active');
+});
+
+$(document).on('click', '.edit-solid.category', function() {
+    $(this).addClass('active');
+});
+
+$(document).on('click', '.trash-alt-solid.category', function() {
+    $(this).addClass('active');
+});
 
 
 function eventFire(el, etype) {

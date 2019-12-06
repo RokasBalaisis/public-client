@@ -43,6 +43,29 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
                 }
             }
         })
+        .when('/categories', {
+            templateUrl: 'views/categories.html',
+            controller: 'CategoryController',
+            resolve: {
+                categoriesIndex: function(ApiService, $q) {
+                    var deffered = $q.defer();
+                    var promises = [ApiService.categories_index(), ApiService.mediatypes_index()];
+                    $q.all(promises).then(function(responses) {
+                        var categories = responses[0].data.categories;
+                        var mediatypes = responses[1].data.media_types;
+                        angular.forEach(categories, function(c_value, c_key) {
+                            angular.forEach(mediatypes, function(m_value, m_key) {
+                                if (c_value.media_type_id == m_value.id) {
+                                    categories[c_key].media_type_name = m_value.name;
+                                }
+                            });
+                        });
+                        deffered.resolve(categories);
+                    })
+                    return deffered.promise;
+                }
+            }
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -126,6 +149,12 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
                 }
                 break;
             case '/mediatypes':
+                $rootScope.navbarDisabled = false;
+                if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
+                    $location.path('');
+                }
+                break;
+            case '/categories':
                 $rootScope.navbarDisabled = false;
                 if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
                     $location.path('');

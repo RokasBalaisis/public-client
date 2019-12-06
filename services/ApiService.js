@@ -9,6 +9,21 @@ app.factory("ApiService", function($http, API) {
         register: function($data) {
             return $http.post(API + '/register', JSON.stringify($data));
         },
+        categories_index: function() {
+            return $http.get(API + '/categories');
+        },
+        categories_detailed_info: function($id) {
+            return $http.get(API + '/categories/' + $id);
+        },
+        categories_create: function($data) {
+            return $http.post(API + '/categories', JSON.stringify($data));
+        },
+        categories_edit: function($id, $data) {
+            return $http.put(API + '/categories/' + $id, JSON.stringify($data));
+        },
+        categories_delete: function($id) {
+            return $http.delete(API + '/categories/' + $id);
+        },
         mediatypes_index: function() {
             return $http.get(API + '/mediatypes');
         },
