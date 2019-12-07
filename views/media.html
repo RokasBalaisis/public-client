@@ -34,20 +34,12 @@
                 <b ng-if="$last">.</b>
         </span>
         </p>
-        <p>Files:
-            <span ng-repeat="file in mediaDetails.files">
-                <span ng-if="file.folder == images">
-
-                </span>
-            <span ng-if="!file.folder == images">
-                        <b>{{actor.name}} </b>
-                        <b>{{actor.surname}}</b>
-                        <b ng-if="!$last">, </b>
-                        <b ng-if="$last">.</b>
-                </span>
-
-            </span>
-        </p>
+        <p>Files:</p>
+        <span ng-repeat="file in mediaDetails.files">
+                <div ng-if="file.folder == 'images'"><img src="{{fileImage[file.id]}}" style="width: 200px;height: 130px; border:2px solid black; border-radius:10px; margin-right:30%; margin-top:1%; margin-bottom:1%;" /><b>{{file.name}}</b>
+                </div>
+        <div ng-if="file.folder != 'images'"><img src="{{noFileImage}}" style="width: 200px;height: 130px; border:2px solid black; border-radius:10px; margin-right:30%; margin-top:1%; margin-bottom:1%;" /><b>{{file.name}}</b></div>
+        </span>
         <p>Average Rating: <b>{{calculateAverageRating(mediaDetails.ratings)}}</b></p>
         <p>Ratings Count: <b>{{mediaDetails.ratings.length}}</b></p>
         <p>Trailer:</p>

@@ -160,10 +160,15 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
     }
 
     $scope.getMediaDetails = function($id) {
+        $scope.fileImage = [];
+        $scope.noImage();
         angular.forEach(mediaIndex, function(m_value, m_key) {
             if (m_value.id == $id) {
                 $scope.mediaDetails = m_value;
                 $scope.mediaDetails.trailer_url = $sce.trustAsResourceUrl('https://' + $scope.mediaDetails.trailer_url);
+                angular.forEach(m_value.files, function(n_value, n_key) {
+                    $scope.viewImage(n_value.id);
+                })
             }
         });
     }
@@ -191,8 +196,22 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
     $scope.viewImage = function($id) {
         var promise = ApiService.media_download_file($id);
         promise.then(function(response) {
-            console.log(response.data);
-            return response.data.roles;
+            fr = new FileReader();
+            fr.onload = function() {
+                $scope.fileImage[$id] = fr.result;
+            };
+            fr.readAsDataURL(response.data);
+        });
+    }
+
+    $scope.noImage = function() {
+        var promise = ApiService.media_noimage();
+        promise.then(function(response) {
+            fr = new FileReader();
+            fr.onload = function() {
+                $scope.noFileImage = fr.result;
+            };
+            fr.readAsDataURL(response.data);
         });
     }
 }]);

@@ -31,7 +31,10 @@ app.factory("ApiService", function($http, API) {
             return $http.get(API + '/media/' + $id);
         },
         media_download_file: function($id) {
-            return $http.get(API + '/media/file', +$id);
+            return $http.get(API + '/media/file/' + $id, { responseType: "blob" });
+        },
+        media_noimage: function() {
+            return $http.get(API + '/noimage', { responseType: "blob" });
         },
         media_create: function($data) {
             return $http.post(API + '/media', JSON.stringify($data));
