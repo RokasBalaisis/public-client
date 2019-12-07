@@ -43,7 +43,8 @@
         <p>Average Rating: <b>{{calculateAverageRating(mediaDetails.ratings)}}</b></p>
         <p>Ratings Count: <b>{{mediaDetails.ratings.length}}</b></p>
         <p>Trailer:</p>
-        <iframe width="450" height="315" src="{{mediaDetails.trailer_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <ng-youtube-embed video="mediaDetails.trailer_url" autoplay="false" color="red" disablekb="true">
+        </ng-youtube-embed>
     </div>
     <button id="custom-media-info-close" class="btn btn-primary" style="margin: 5% auto 0 auto; display:block; position: relative; width: 60%;" ng-click="closeMediaDetailsForm()">Close</button>
 

@@ -1,4 +1,4 @@
-var app = angular.module('project', ['ngStorage', 'ngRoute', 'angular-jwt', 'ui.bootstrap']).constant('API', 'https://api.moviesandtvshows.com');
+var app = angular.module('project', ['ngStorage', 'ngRoute', 'angular-jwt', 'ui.bootstrap', 'ngYoutubeEmbed']).constant('API', 'https://api.moviesandtvshows.com');
 
 app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locationProvider', '$sceProvider', function($httpProvider, $localStorageProvider, $routeProvider, $locationProvider, $sceProvider) {
     $localStorageProvider.setKeyPrefix('');
