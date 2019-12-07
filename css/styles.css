@@ -648,6 +648,147 @@ input:focus::placeholder {
     border-color: white !important;
 }
 
+#custom-media-create-open {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+}
+
+#custom-media-create-open:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
+#custom-media-create-close {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+}
+
+#custom-media-create-close:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
+#custom-media-create {
+    color: whitesmoke !important;
+    background-color: black !important;
+    border-color: whitesmoke !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px whitesmoke;
+}
+
+#custom-media-create:hover {
+    box-shadow: inset 400px 0 0 0 whitesmoke;
+    color: black !important;
+    border-color: black !important;
+}
+
+#custom-media-info-close {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+    margin: -5% auto 5% auto !important;
+}
+
+#custom-media-info-close:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
+#custom-media-edit {
+    color: whitesmoke !important;
+    background-color: black !important;
+    border-color: whitesmoke !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px whitesmoke;
+    margin: 5% auto 0 auto !important;
+    width: 30% !important;
+    float: right;
+}
+
+#custom-media-edit:hover {
+    box-shadow: inset 400px 0 0 0 whitesmoke;
+    color: black !important;
+    border-color: black !important;
+}
+
+#custom-media-edit-close {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+    margin: 5% auto 0 auto !important;
+    width: 30% !important;
+    float: left;
+}
+
+#custom-media-edit-close:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
+#custom-media-delete {
+    color: whitesmoke !important;
+    background-color: black !important;
+    border-color: whitesmoke !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px whitesmoke;
+    margin: 20% 5% 0 0 !important;
+    width: 30% !important;
+    float: right;
+}
+
+#custom-media-delete:hover {
+    box-shadow: inset 400px 0 0 0 whitesmoke;
+    color: black !important;
+    border-color: black !important;
+}
+
+#custom-media-delete-close {
+    color: black !important;
+    background-color: whitesmoke !important;
+    border-color: black !important;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    box-shadow: inset 0 0 0 0.01px black;
+    margin: 27.8% 0 0 5% !important;
+    width: 30% !important;
+    float: left;
+}
+
+#custom-media-delete-close:hover {
+    box-shadow: inset 400px 0 0 0 black;
+    color: whitesmoke !important;
+    border-color: white !important;
+}
+
 .login-form-section #custom {
     color: whitesmoke !important;
     background-color: black !important;
@@ -890,6 +1031,44 @@ body {
     font-weight: 700;
 }
 
+.mediaContainerHeader {
+    width: 50vw;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: whitesmoke;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+    border-radius: 5px;
+}
+
+.mediaContainer {
+    color: whitesmoke;
+}
+
+.mediaContainer>table {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: whitesmoke;
+    width: 75%;
+    margin: 0vh auto 0.1% auto;
+    font-size: 14px;
+    border-radius: 5px !important;
+    line-height: 1;
+}
+
+.mediaContainer>table th:hover {
+    border-radius: 5px !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: rgb(197, 197, 197);
+    cursor: pointer;
+}
+
+.mediaContainer>table tr:hover {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: rgb(197, 197, 197);
+    font-weight: 700;
+}
+
 .input-res {
     width: 100%;
     max-width: 12vw;
@@ -1088,6 +1267,27 @@ body nav button {
 }
 
 .popupWindow.category-delete {
+    background-color: rgba(131, 130, 130, 0.911);
+    width: 510px !important;
+    height: 200px !important;
+}
+
+.popupWindow.media-info {
+    background-color: rgba(131, 130, 130, 0.911);
+    width: 510px !important;
+    height: 500px !important;
+}
+
+.popupWindow.media-edit {
+    background-color: rgba(131, 130, 130, 0.911);
+}
+
+.popupWindow.media-create {
+    background-color: rgba(131, 130, 130, 0.911);
+    height: 420px !important;
+}
+
+.popupWindow.media-delete {
     background-color: rgba(131, 130, 130, 0.911);
     width: 510px !important;
     height: 200px !important;

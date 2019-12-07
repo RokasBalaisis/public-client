@@ -1,10 +1,10 @@
 var app = angular.module('project', ['ngStorage', 'ngRoute', 'angular-jwt', 'ui.bootstrap']).constant('API', 'https://api.moviesandtvshows.com');
 
-app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locationProvider', function($httpProvider, $localStorageProvider, $routeProvider, $locationProvider) {
+app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locationProvider', '$sceProvider', function($httpProvider, $localStorageProvider, $routeProvider, $locationProvider, $sceProvider) {
     $localStorageProvider.setKeyPrefix('');
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
     $httpProvider.interceptors.push('AuthHttpInterceptor');
-
+    $sceProvider.enabled(false);
 
 
     $routeProvider
@@ -61,6 +61,40 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
                             });
                         });
                         deffered.resolve(categories);
+                    })
+                    return deffered.promise;
+                }
+            }
+        })
+        .when('/media', {
+            templateUrl: 'views/media.html',
+            controller: 'MediaController',
+            resolve: {
+                mediaIndex: function(ApiService, $q) {
+                    var deffered = $q.defer();
+                    var promises = [ApiService.media_index(), ApiService.categories_index(), ApiService.mediatypes_index()];
+                    $q.all(promises).then(function(responses) {
+                        var media = responses[0].data.media;
+                        var categories = responses[1].data.categories;
+                        var mediatypes = responses[2].data.media_types;
+                        angular.forEach(media, function(c_value, c_key) {
+                            angular.forEach(categories, function(m_value, m_key) {
+                                if (c_value.category_id == m_value.id) {
+                                    media[c_key].category_name = m_value.name;
+                                    media[c_key].media_type_id = m_value.media_type_id;
+                                }
+                            });
+                        });
+
+                        angular.forEach(media, function(c_value, c_key) {
+                            angular.forEach(mediatypes, function(m_value, m_key) {
+                                if (c_value.media_type_id == m_value.id) {
+                                    media[c_key].media_type_name = m_value.name;
+                                }
+                            });
+                        });
+
+                        deffered.resolve(media);
                     })
                     return deffered.promise;
                 }
@@ -155,6 +189,12 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
                 }
                 break;
             case '/categories':
+                $rootScope.navbarDisabled = false;
+                if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
+                    $location.path('');
+                }
+                break;
+            case '/media':
                 $rootScope.navbarDisabled = false;
                 if ($rootScope.loggedIn() == false || $rootScope.getRole() != 'admin') {
                     $location.path('');

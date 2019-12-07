@@ -24,6 +24,21 @@ app.factory("ApiService", function($http, API) {
         categories_delete: function($id) {
             return $http.delete(API + '/categories/' + $id);
         },
+        media_index: function() {
+            return $http.get(API + '/media');
+        },
+        media_detailed_info: function($id) {
+            return $http.get(API + '/media/' + $id);
+        },
+        media_create: function($data) {
+            return $http.post(API + '/media', JSON.stringify($data));
+        },
+        media_edit: function($id, $data) {
+            return $http.put(API + '/media/' + $id, JSON.stringify($data));
+        },
+        media_delete: function($id) {
+            return $http.delete(API + '/media/' + $id);
+        },
         mediatypes_index: function() {
             return $http.get(API + '/mediatypes');
         },

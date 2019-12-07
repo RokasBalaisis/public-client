@@ -226,6 +226,68 @@ document.addEventListener('click', function(event) {
     }
 
 
+    ///////////////////////////////// MEDIA CRUD /////////////////////////////////
+
+    if (document.body.contains(document.getElementById('popupWindow-media-info'))) {
+        if (!document.getElementById('popupWindow-media-info').contains(event.target)) {
+            if (typeof $(document).find('.info-square-solid.media.active')[0] !== 'undefined') {
+                if ($(document).find('.info-square-solid.media.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-media-info-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-media-info')).is(":visible")) {
+                eventFire(document.getElementById('custom-media-info-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-media-info')).is(":hidden")) {
+        if ($(document).find('.info-square-solid.media.active') != null)
+            $(document).find('.info-square-solid.media.active').removeClass("active");
+    }
+
+
+    if (document.body.contains(document.getElementById('popupWindow-media-edit'))) {
+        if (!document.getElementById('popupWindow-media-edit').contains(event.target)) {
+            if (typeof $(document).find('.edit-solid.media.active')[0] !== 'undefined') {
+                if ($(document).find('.edit-solid.media.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-media-edit-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-media-edit')).is(":visible")) {
+                eventFire(document.getElementById('custom-media-edit-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-media-edit')).is(":hidden")) {
+        if ($(document).find('.edit-solid.media.active') != null)
+            $(document).find('.edit-solid.media.active').removeClass("active");
+    }
+
+
+    if (document.body.contains(document.getElementById('popupWindow-media-delete'))) {
+        if (!document.getElementById('popupWindow-media-delete').contains(event.target)) {
+            if (typeof $(document).find('.trash-alt-solid.media.active')[0] !== 'undefined') {
+                if ($(document).find('.trash-alt-solid.media.active')[0].contains(event.target))
+                    eventFire(document.getElementById('custom-media-delete-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-media-delete')).is(":visible")) {
+                eventFire(document.getElementById('custom-media-delete-close'), 'click');
+            }
+        }
+    }
+
+    if ($(document.getElementById('popupWindow-media-delete')).is(":hidden")) {
+        if ($(document).find('.trash-alt-solid.media.active') != null)
+            $(document).find('.trash-alt-solid.media.active').removeClass("active");
+    }
+
+    if (document.body.contains(document.getElementById('popupWindow-media-create'))) {
+        if (!document.getElementById('popupWindow-media-create').contains(event.target) && document.getElementById('custom-media-create-open') != null) {
+            if (document.getElementById('custom-media-create-open').contains(event.target)) {
+                eventFire(document.getElementById('custom-media-create-close'), 'click');
+            } else if ($(document.getElementById('popupWindow-media-create')).is(":visible")) {
+                eventFire(document.getElementById('custom-media-create-close'), 'click');
+            }
+        }
+    }
+
 });
 
 
@@ -271,6 +333,18 @@ $(document).on('click', '.edit-solid.category', function() {
 });
 
 $(document).on('click', '.trash-alt-solid.category', function() {
+    $(this).addClass('active');
+});
+
+$(document).on('click', '.info-square-solid.media', function() {
+    $(this).addClass('active');
+});
+
+$(document).on('click', '.edit-solid.media', function() {
+    $(this).addClass('active');
+});
+
+$(document).on('click', '.trash-alt-solid.media', function() {
     $(this).addClass('active');
 });
 
