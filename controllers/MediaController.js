@@ -176,5 +176,23 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
         });
     }
 
+    $scope.calculateAverageRating = function(MyData) {
+        if (MyData.length == 0)
+            return 0;
+        var sum = 0;
+        for (var i = 0; i < MyData.length; i++) {
+            sum += parseFloat(MyData[i].rating);
+        }
+        var avg = sum / MyData.length;
+        return avg.toFixed(2);
+    };
 
+
+    $scope.viewImage = function($id) {
+        var promise = ApiService.media_download_file($id);
+        promise.then(function(response) {
+            console.log(response.data);
+            return response.data.roles;
+        });
+    }
 }]);

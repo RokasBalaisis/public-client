@@ -30,6 +30,9 @@ app.factory("ApiService", function($http, API) {
         media_detailed_info: function($id) {
             return $http.get(API + '/media/' + $id);
         },
+        media_download_file: function($id) {
+            return $http.get(API + '/media/file', +$id);
+        },
         media_create: function($data) {
             return $http.post(API + '/media', JSON.stringify($data));
         },

@@ -26,11 +26,32 @@
         <p>Short description: <b>{{mediaDetails.short_description}}</b></p>
         <p>Description: <b>{{mediaDetails.description}}</b></p>
         <p>IMDB rating: <b>{{mediaDetails.imdb_rating}}</b></p>
-        <p>Actors: <b>{{mediaDetails.actors}}</b></p>
-        <p>Files: <b>{{mediaDetails.files}}</b></p>
-        <p>Ratings: <b>{{mediaDetails.ratings}}</b></p>
+        <p>Actors:
+            <span ng-repeat="actor in mediaDetails.actors">
+                <b>{{actor.name}} </b>
+                <b>{{actor.surname}}</b>
+                <b ng-if="!$last">, </b>
+                <b ng-if="$last">.</b>
+        </span>
+        </p>
+        <p>Files:
+            <span ng-repeat="file in mediaDetails.files">
+                <span ng-if="file.folder == images">
+
+                </span>
+            <span ng-if="!file.folder == images">
+                        <b>{{actor.name}} </b>
+                        <b>{{actor.surname}}</b>
+                        <b ng-if="!$last">, </b>
+                        <b ng-if="$last">.</b>
+                </span>
+
+            </span>
+        </p>
+        <p>Average Rating: <b>{{calculateAverageRating(mediaDetails.ratings)}}</b></p>
+        <p>Ratings Count: <b>{{mediaDetails.ratings.length}}</b></p>
         <p>Trailer:</p>
-        <iframe width="560" height="315" src="{{mediaDetails.trailer_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="450" height="315" src="{{mediaDetails.trailer_url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <button id="custom-media-info-close" class="btn btn-primary" style="margin: 5% auto 0 auto; display:block; position: relative; width: 60%;" ng-click="closeMediaDetailsForm()">Close</button>
 
