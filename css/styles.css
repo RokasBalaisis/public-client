@@ -1081,6 +1081,21 @@ body {
     background-color: whitesmoke;
 }
 
+.remove-file {
+    height: 11px;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    filter: grayscale(100%);
+    position: relative;
+    float: right;
+    top: 11px;
+}
+
+.remove-file:hover {
+    filter: grayscale(0%);
+}
+
 body nav {
     background-color: rgba(0, 0, 0, 0.8);
     color: whitesmoke;

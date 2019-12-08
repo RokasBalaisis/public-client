@@ -108,6 +108,97 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
     $locationProvider.html5Mode(true);
 }]);
 
+app.directive('onError', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('load', function() {
+                //call the function that was passed
+                scope.$apply(attrs.onError);
+            });
+        }
+    }
+})
+
+
+app.directive('ngFileModel', ['$parse', '$rootScope', function($parse, $rootScope) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.ngFileModel);
+            var isMultiple = attrs.multiple;
+            var modelSetter = model.assign;
+            var values = [];
+
+            element.bind('change', function() {
+                angular.forEach(element[0].files, function(item) {
+                    var foundSame = false;
+                    var value = {
+                        // File Name 
+                        name: item.name,
+                        //File Size 
+                        size: item.size,
+                        //File URL to view 
+                        url: URL.createObjectURL(item),
+                        // File Input Value 
+                        _file: item
+                    };
+                    if (typeof $rootScope.taskEditData !== 'undefined') {
+                        for (var i in $rootScope.taskEditData.photos) {
+                            if ($rootScope.taskEditData.photos[i].file == value.name) {
+                                foundSame = true;
+                            }
+                        }
+                    }
+                    if (typeof $rootScope.taskEditData !== 'undefined') {
+                        for (var i in $rootScope.taskEditData.firmwares) {
+                            if ($rootScope.taskEditData.firmwares[i].file == value.name) {
+                                foundSame = true;
+                            }
+                        }
+                    }
+                    for (var i in values) {
+                        if (values[i].name === value.name) {
+                            foundSame = true;
+                        }
+                    }
+                    if (!foundSame)
+                        values.push(value);
+                });
+                scope.$apply(function() {
+                    if (isMultiple) {
+                        modelSetter(scope, values);
+                    } else {
+                        modelSetter(scope, values[0]);
+                    }
+                });
+            });
+
+
+        },
+
+
+        controller: function($scope, $rootScope, $element, $attrs, ) {
+
+            $rootScope.$on('uploadFormClosed', function() {
+                $parse($attrs.ngFileModel)($scope).splice(0, $parse($attrs.ngFileModel)($scope).length)
+
+            });
+
+            $rootScope.$on('Debug', function() {
+
+            });
+
+            $rootScope.$on('uploadFormDeleteFile', function($id, $modelData) {
+                if ($parse($attrs.ngFileModel)($scope) == $modelData[1]) {
+                    $parse($attrs.ngFileModel)($scope).splice($modelData[0], 1);
+                }
+            });
+        }
+    };
+}]);
+
+
 app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService', 'jwtHelper', function($rootScope, $localStorage, $location, AuthService, ApiService, jwtHelper) {
     $rootScope.loggedIn = function() {
         var result = AuthService.isAuthenticated();

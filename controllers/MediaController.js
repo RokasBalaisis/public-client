@@ -1,16 +1,18 @@
-app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'mediaIndex', '$sce', function($scope, ApiService, $rootScope, $location, $q, mediaIndex, $sce) {
+app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'mediaIndex', '$sce', 'ngYoutubeEmbedService', '$filter', '$timeout', function($scope, ApiService, $rootScope, $location, $q, mediaIndex, $sce, ngYoutubeEmbedService, $filter, $timeout) {
+    var selectpickerInitiated = false;
     $scope.name = 'Angular ';
     $scope.page = 1;
+    $scope.files = [];
     $scope.hasEditFormErrors = false;
     $scope.hasCreateFormErrors = false;
     $scope.media = mediaIndex;
-    console.log(mediaIndex);
     if (mediaIndex != null && typeof mediaIndex !== 'undefined')
         $scope.totalItems = mediaIndex.length;
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     }
+
 
 
     $scope.index = function() {
@@ -45,21 +47,97 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
 
     $scope.closeMediaCreateForm = function() {
         $(".overlay").fadeToggle("slow", "linear");
-        if ($(document.getElementById('popupWindow-role-create')).is(":visible")) {
-            $("#popupWindow-role-create").hide();
+        if ($(document.getElementById('popupWindow-media-create')).is(":visible")) {
+            $("#popupWindow-media-create").hide();
             $scope.name_create = "";
+            $scope.short_description_create = "";
+            $scope.description_create = "";
+            $scope.trailer_url_create = ""
+            $scope.selectedImdbRating_create = 0.1;
+
+            $scope.actor_ids_create = [];
+            $scope.files = [];
             $scope.hasCreateFormErrors = false;
         } else {
-            $("#popupWindow-role-create").delay(400).fadeToggle('slow');
-            $scope.selectedRole_create = 1;
+
+            var promises = [ApiService.mediatypes_index(), ApiService.actors_index()];
+            $q.all(promises).then(function(responses) {
+                $scope.mediatypes = responses[0].data.media_types;
+                $scope.actors = responses[1].data.actors;
+                angular.forEach($scope.actors, function(value, key) {
+                    value.label = value.name + ' ' + value.surname;
+                })
+                if (selectpickerInitiated == false) {
+                    selectpickerInitiated = true;
+                    $('#actorSelection').selectpicker({
+                        dropupAuto: false
+                    });
+                } else {
+                    $('#actorSelection').selectpicker('val', '');
+                    $timeout(function() {
+                        $('#actorSelection').selectpicker('refresh');
+                    });
+                }
+
+            }).finally(function() {
+                $("#popupWindow-media-create").delay(400).fadeToggle('slow');
+                $scope.selectedImdbRating_create = 0.1;
+                $scope.selectedMediaType_create = $scope.mediatypes[0];
+                $scope.updateCategorySelection($scope.mediatypes[0].id);
+            })
         }
     }
 
+    $scope.updateCategorySelection = function(selection) {
+        angular.forEach($scope.mediatypes, function(value, key) {
+            if (value.id == selection) {
+                $scope.categories = value.categories;
+                $scope.selectedMediaType_create = value;
+                $scope.selectedCategory_create = value.categories[0].id;
+            }
+        })
+    };
+
+    $scope.selectActor = function(actor) {
+        $scope.actor_ids_create.push(actor);
+        console.log($scope.actor_ids_create);
+    }
+
+    $scope.fileUploaded = function() {
+
+    }
+
+    $rootScope.removeFile = function($id, $modelName) {
+        $rootScope.$emit('uploadFormDeleteFile', [$id, $modelName]);
+    };
+
     $scope.create = function() {
-        var $data = {
-            name: $scope.name_create.toLowerCase(),
-        }
-        var promise = ApiService.roles_create($data);
+        console.log($('#actorSelection').val());
+        var fd = new FormData();
+        var counter = 0;
+        angular.forEach($scope.files, function(file) {
+            fd.append('image[' + counter + ']', file._file);
+            counter++;
+        });
+
+        if (typeof $scope.name_create === 'undefined')
+            $scope.name = "";
+
+        fd.append('category_id', $scope.selectedCategory_create);
+        fd.append('name', $scope.name_create.toLowerCase());
+        fd.append('short_description', $scope.short_description_create);
+        fd.append('description', $scope.description_create);
+        fd.append('trailer_url', $scope.trailer_url_create);
+        fd.append('imdb_rating', $scope.selectedImdbRating_create);
+
+        counter = 0;
+
+        angular.forEach($scope.actor_ids_create, function(file) {
+            fd.append('actor_id[' + counter + ']', file);
+            counter++;
+        });
+
+        var promise = ApiService.media_create(fd);
 
         promise.then(function(response) {
             if (response.status == 401 || response.status == 422 || response.status == 409) {
@@ -74,7 +152,7 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
             } else if (response.status == 201) {
                 $scope.hasCreateFormErrors = false;
                 $scope.index();
-                $scope.closeRoleCreateForm();
+                $scope.closeMediaCreateForm();
                 $scope.page = Math.ceil($scope.totalItems / 10);
                 $rootScope.successMessage = response.data['message'];
                 $('#successful-alert').delay(400).fadeToggle("slow", "linear");
@@ -160,26 +238,17 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
     }
 
     $scope.getMediaDetails = function($id) {
-        $scope.fileImage = [];
+        $scope.loadFiles($id);
         $scope.noImage();
-        angular.forEach(mediaIndex, function(m_value, m_key) {
+        angular.forEach($scope.media, function(m_value, m_key) {
             if (m_value.id == $id) {
                 $scope.mediaDetails = m_value;
-                $scope.mediaDetails.trailer_url = $sce.trustAsResourceUrl('https://' + $scope.mediaDetails.trailer_url);
-                angular.forEach(m_value.files, function(n_value, n_key) {
-                    $scope.viewImage(n_value.id);
-                })
+                $scope.mediaDetails.trailer_url = $sce.trustAsResourceUrl($scope.mediaDetails.trailer_url);
             }
         });
     }
 
-    $scope.getRoles = function() {
-        var promise = ApiService.roles_index();
-        promise.then(function(response) {
-            $scope.roles = response.data.roles;
-            return response.data.roles;
-        });
-    }
+
 
     $scope.calculateAverageRating = function(MyData) {
         if (MyData.length == 0)
@@ -193,7 +262,35 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
     };
 
 
-    $scope.viewImage = function($id) {
+    $scope.loadFiles = function($id) {
+        var currentMedia = "";
+        angular.forEach(mediaIndex, function(m_value, m_key) {
+            if (m_value.id == $id) {
+                currentMedia = m_value;
+            }
+        })
+
+        $scope.fileImage = [];
+        var files = [];
+        angular.forEach(currentMedia.files, function(m_value, m_key) {
+            files.push(m_value.id);
+        });
+
+
+        // Define the initial promise
+        var sequence = $q.defer();
+        sequence.resolve();
+        sequence = sequence.promise;
+
+        angular.forEach(files, function(val, key) {
+            sequence = sequence.then(function() {
+                return $scope.downloadFile(val);
+            });
+        });
+
+    }
+
+    $scope.downloadFile = function($id) {
         var promise = ApiService.media_download_file($id);
         promise.then(function(response) {
             fr = new FileReader();
@@ -203,6 +300,7 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
             fr.readAsDataURL(response.data);
         });
     }
+
 
     $scope.noImage = function() {
         var promise = ApiService.media_noimage();

@@ -9,6 +9,21 @@ app.factory("ApiService", function($http, API) {
         register: function($data) {
             return $http.post(API + '/register', JSON.stringify($data));
         },
+        actors_index: function() {
+            return $http.get(API + '/actors');
+        },
+        actors_detailed_info: function($id) {
+            return $http.get(API + '/actors/' + $id);
+        },
+        actors_create: function($data) {
+            return $http.post(API + '/actors', JSON.stringify($data));
+        },
+        actors_edit: function($id, $data) {
+            return $http.put(API + '/actors/' + $id, JSON.stringify($data));
+        },
+        actors_delete: function($id) {
+            return $http.delete(API + '/actors/' + $id);
+        },
         categories_index: function() {
             return $http.get(API + '/categories');
         },
@@ -37,7 +52,10 @@ app.factory("ApiService", function($http, API) {
             return $http.get(API + '/noimage', { responseType: "blob" });
         },
         media_create: function($data) {
-            return $http.post(API + '/media', JSON.stringify($data));
+            return $http.post(API + '/media', $data, {
+                transformRequest: angular.identity,
+                headers: { 'Content-type': undefined }
+            });
         },
         media_edit: function($id, $data) {
             return $http.put(API + '/media/' + $id, JSON.stringify($data));

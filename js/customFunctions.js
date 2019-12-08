@@ -282,7 +282,7 @@ document.addEventListener('click', function(event) {
         if (!document.getElementById('popupWindow-media-create').contains(event.target) && document.getElementById('custom-media-create-open') != null) {
             if (document.getElementById('custom-media-create-open').contains(event.target)) {
                 eventFire(document.getElementById('custom-media-create-close'), 'click');
-            } else if ($(document.getElementById('popupWindow-media-create')).is(":visible")) {
+            } else if ($(document.getElementById('popupWindow-media-create')).is(":visible") && $(event.target).attr('class') != 'remove-file') {
                 eventFire(document.getElementById('custom-media-create-close'), 'click');
             }
         }
