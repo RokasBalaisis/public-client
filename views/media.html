@@ -29,7 +29,7 @@
         </p>
         <p>Files:</p>
         <span ng-repeat="file in mediaDetails.files">
-                <div ng-if="file.folder == 'images'"><img src="{{fileImage[file.id]}}" on-error="downloadFile(file.id)" style="width: 200px;height: 130px; border:2px solid black; border-radius:10px; margin-right:30%; margin-top:1%; margin-bottom:1%;" /><a href="{{fileImage[file.id]}}" style="text-decoration: none;" download="{{file.name}}"><b style="color:black;">{{file.name}}</b></a>
+                <div ng-if="file.folder == 'images'"><img src="{{fileUrl[file.id]}}" on-error="downloadFile(file.id)" style="width: 200px;height: 130px; border:2px solid black; border-radius:10px; margin-right:30%; margin-top:1%; margin-bottom:1%;" /><a href="{{fileImage[file.id]}}" style="text-decoration: none;" download="{{file.name}}"><b style="color:black;">{{file.name}}</b></a>
                 </div>
         <div ng-if="file.folder != 'images'"><img src="{{noFileImage}}" on-error="noImage()" style="width: 200px;height: 130px; border:2px solid black; border-radius:10px; margin-right:30%; margin-top:1%; margin-bottom:1%;" /><a href="{{fileImage[file.id]}}" style="text-decoration: none;" download="{{file.name}}"><b style="color:black;">{{file.name}}</b></a></div>
         </span>

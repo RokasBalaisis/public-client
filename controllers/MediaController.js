@@ -1,4 +1,4 @@
-app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'mediaIndex', '$sce', 'ngYoutubeEmbedService', '$filter', '$timeout', function($scope, ApiService, $rootScope, $location, $q, mediaIndex, $sce, ngYoutubeEmbedService, $filter, $timeout) {
+app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$location', '$q', 'mediaIndex', '$sce', 'ngYoutubeEmbedService', '$filter', '$timeout', 'API', function($scope, ApiService, $rootScope, $location, $q, mediaIndex, $sce, ngYoutubeEmbedService, $filter, $timeout, API) {
     var selectpickerInitiated = false;
     $scope.name = 'Angular ';
     $scope.page = 1;
@@ -100,7 +100,6 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
 
     $scope.selectActor = function(actor) {
         $scope.actor_ids_create.push(actor);
-        console.log($scope.actor_ids_create);
     }
 
     $scope.fileUploaded = function() {
@@ -112,7 +111,6 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
     };
 
     $scope.create = function() {
-        console.log($('#actorSelection').val());
         var fd = new FormData();
         var counter = 0;
         angular.forEach($scope.files, function(file) {
@@ -121,7 +119,7 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
         });
 
         if (typeof $scope.name_create === 'undefined')
-            $scope.name = "";
+            $scope.name_create = "";
 
         fd.append('category_id', $scope.selectedCategory_create);
         fd.append('name', $scope.name_create.toLowerCase());
@@ -131,6 +129,8 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
         fd.append('imdb_rating', $scope.selectedImdbRating_create);
 
         counter = 0;
+
+        $scope.actor_ids_create = $('#actorSelection').val();
 
         angular.forEach($scope.actor_ids_create, function(file) {
             fd.append('actor_id[' + counter + ']', file);
@@ -238,6 +238,7 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
     }
 
     $scope.getMediaDetails = function($id) {
+        $scope.fileUrl = [];
         $scope.loadFiles($id);
         $scope.noImage();
         angular.forEach($scope.media, function(m_value, m_key) {
@@ -246,6 +247,9 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
                 $scope.mediaDetails.trailer_url = $sce.trustAsResourceUrl($scope.mediaDetails.trailer_url);
             }
         });
+        angular.forEach($scope.mediaDetails.files, function(m_value, m_key) {
+            $scope.fileUrl[m_value.id] = $scope.getUrl(m_value);
+        })
     }
 
 
@@ -290,12 +294,22 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
 
     }
 
+    $scope.getUrl = function(file) {
+        var datetime = file.created_at;
+        datetime = datetime.replace(/\s/g, "_");
+        datetime = datetime.replace(/:/g, "-");
+        datetime = datetime.replace(/\./g, "-");
+        return API + '/storage/' + datetime + '_' + file.name;
+    }
+
     $scope.downloadFile = function($id) {
         var promise = ApiService.media_download_file($id);
         promise.then(function(response) {
             fr = new FileReader();
-            fr.onload = function() {
-                $scope.fileImage[$id] = fr.result;
+            fr.onloadend = function() {
+                $scope.$apply(function() {
+                    $scope.fileImage[$id] = fr.result;
+                })
             };
             fr.readAsDataURL(response.data);
         });

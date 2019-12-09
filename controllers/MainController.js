@@ -66,5 +66,13 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
         $location.path('');
     };
 
+    $scope.getMedia = function() {
+        var promise = ApiService.mediatypes_index_with_media();
+        promise.then(function(response) {
+            $scope.mediatypes = response.data.media_types;
+        })
+    }
+
+    $scope.getMedia();
 
 }]);
