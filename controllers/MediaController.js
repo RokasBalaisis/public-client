@@ -3,11 +3,17 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
     $scope.name = 'Angular ';
     $scope.page = 1;
     $scope.files = [];
+    $scope.cover = '';
     $scope.hasEditFormErrors = false;
     $scope.hasCreateFormErrors = false;
     $scope.media = mediaIndex;
     if (mediaIndex != null && typeof mediaIndex !== 'undefined')
         $scope.totalItems = mediaIndex.length;
+
+    $scope.yearsArray = [...Array(new Date().getFullYear() + 1).keys()].slice(1900)
+
+    console.log($scope.yearsArray);
+
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
@@ -72,6 +78,9 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
                     $('#actorSelection').selectpicker({
                         dropupAuto: false
                     });
+                    $('#yearSelection').selectpicker({
+                        dropupAuto: false
+                    });
                 } else {
                     $('#actorSelection').selectpicker('val', '');
                     $timeout(function() {
@@ -102,9 +111,7 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
         $scope.actor_ids_create.push(actor);
     }
 
-    $scope.fileUploaded = function() {
-
-    }
+    $scope.fileUploaded = function() {}
 
     $rootScope.removeFile = function($id, $modelName) {
         $rootScope.$emit('uploadFormDeleteFile', [$id, $modelName]);
@@ -127,6 +134,8 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
         fd.append('description', $scope.description_create);
         fd.append('trailer_url', $scope.trailer_url_create);
         fd.append('imdb_rating', $scope.selectedImdbRating_create);
+        fd.append('year', $('#yearSelection').val());
+        fd.append('cover', $scope.cover._file);
 
         counter = 0;
 

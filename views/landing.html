@@ -1,23 +1,28 @@
 <!-- Page Content -->
 
-<div class="landingContainer">
+<div class="landingContainer container-fluid">
     <div ng-repeat="mediatype in mediatypes">
-        <h1>{{mediatype.name | capitalize}}</h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    {{mediatype.media[0].name | capitalize}}
-                </div>
-                <div class="col-sm">
-                    One of three columns
-                </div>
-                <div class="col-sm">
-                    One of three columns
-                </div>
-                <div class="col-sm">
-                    One of three columns
+        <div class="row">
+            <div ng-repeat="media in mediatype.media" class="media-grid col-xl-3 col-lg-4 col-sm-6 col-xs-12">
+                <div class="media-container">
+                    <div class="media-container-inner-cover" style="background-image: url('{{STORAGE}}{{media.cover[0].folder}}/{{media.cover[0].created_at | datetimeParse}}_{{media.cover[0].name}}');"></div>
+                    <div class="media-container-inner-details">
+                        {{media.name | capitalize}}
+                        <div style=" margin: auto; position: relative; top: 10%; font-size: 14px;">
+                            <p>
+                                {{media.year}}
+                                <br> IMDb: {{media.imdb_rating}}
+                                <br> Rating: {{media.ratingAverage}}/5
+                                <br> Comments: 0
+                            </p>
+                        </div>
+                    </div>
+                    <div class="media-container-inner-download">
+                        Download
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <h1>{{mediatype.name | capitalize}}</h1>
 </div>

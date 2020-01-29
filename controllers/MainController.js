@@ -67,7 +67,7 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
     };
 
     $scope.getMedia = function() {
-        var promise = ApiService.mediatypes_index_with_media();
+        var promise = ApiService.mediatypes_latest_with_media();
         promise.then(function(response) {
             $scope.mediatypes = response.data.media_types;
         })

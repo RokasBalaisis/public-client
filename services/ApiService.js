@@ -69,6 +69,9 @@ app.factory("ApiService", function($http, API) {
         mediatypes_index_with_media: function() {
             return $http.get(API + '/mediatypes/media');
         },
+        mediatypes_latest_with_media: function() {
+            return $http.get(API + '/mediatypes/media/latest');
+        },
         mediatypes_detailed_info: function($id) {
             return $http.get(API + '/mediatypes/' + $id);
         },

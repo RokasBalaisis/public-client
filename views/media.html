@@ -19,6 +19,7 @@
         <p>Short description: <b>{{mediaDetails.short_description}}</b></p>
         <p>Description: <b>{{mediaDetails.description}}</b></p>
         <p>IMDB rating: <b>{{mediaDetails.imdb_rating}}</b></p>
+        <p>Year: <b>{{mediaDetails.year}}</b></p>
         <p>Actors:
             <span ng-repeat="actor in mediaDetails.actors">
                 <b>{{actor.name}} </b>
@@ -120,12 +121,19 @@
         </div>
         <div class="form-group">
             <label for="actor_ids_create">Actors</label>
-            <select id="actorSelection" class="selectpicker" multiple>
-                    <!-- <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option> -->
+            <select id="actorSelection" class="selectpicker" multiple data-live-search="true">
                 <option value="{{value.id}}" ng-repeat="(key, value) in actors">{{value.label}}</option>
             </select>
+        </div>
+        <div class="form-group">
+            <label for="year_create">Year</label>
+            <select id="yearSelection" class="selectpicker" data-live-search="true">
+                <option value="{{value}}" ng-repeat="(key, value) in yearsArray">{{value}}</option>
+            </select>
+        </div>
+        <div class="custom-file" style="cursor:pointer;">
+            <input class="custom-file-input" type="file" ng-file-model="cover" accept="image/bmp,image/gif,image/jpeg,image/png" onchange="angular.element(this).scope().fileUploaded()">
+            <label class="custom-file-label" for="customFile">Choose cover image</label>
         </div>
         <div class="custom-file" style="cursor:pointer;">
             <input class="custom-file-input" type="file" ng-file-model="files" multiple accept="image/bmp,image/gif,image/jpeg,image/png" onchange="angular.element(this).scope().fileUploaded()">

@@ -837,14 +837,67 @@ input:focus::placeholder {
     border-color: white !important;
 }
 
+.media-grid {
+    padding: 0.5%;
+    border-radius: 5px;
+    height: 210px;
+}
+
+.media-grid .media-container:hover {
+    background-color: rgba(73, 72, 72, 0.527);
+}
+
+.media-grid .media-container:hover .media-container-inner-cover {
+    filter: grayscale(0);
+}
+
+.media-container {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    padding: 1%;
+    background-color: rgba(44, 43, 43, 0.527);
+    transition: all ease-in 0.15s
+}
+
+.media-container-inner-cover {
+    border-radius: 5px;
+    float: left;
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    cursor: pointer;
+    filter: grayscale(0.5);
+    transition: all ease-in 0.15s;
+}
+
+.media-container-inner-details {
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+    height: 85%;
+}
+
+.media-container-inner-download {
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+    height: 15%;
+    font-weight: 600;
+}
+
 .landingContainer {
     position: relative;
-    width: 75vw;
-    height: 85vh;
-    margin: 5vh auto 2vh auto;
-    background-color: rgba(0, 0, 0, 0.8);
+    width: 75%;
+    height: 90%;
+    margin: 5% auto 2% auto;
+    background-color: rgba(0, 0, 0, 0.952);
     border-radius: 5px;
     color: whitesmoke;
+    display: block;
+    background-image: url('/img/pixelPattern.png');
+    background-position: center;
+    background-size: auto;
 }
 
 .pagination {
@@ -871,12 +924,17 @@ input:focus::placeholder {
     padding: 0.35rem 0.55rem;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
     background-image: linear-gradient( rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url('/img/landing-background.jpg');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    min-height: 100%;
 }
 
 .usersContainerHeader {
@@ -1099,6 +1157,8 @@ body {
 body nav {
     background-color: rgba(0, 0, 0, 0.8);
     color: whitesmoke;
+    max-width: 75%;
+    margin: 0 auto;
 }
 
 body nav a {

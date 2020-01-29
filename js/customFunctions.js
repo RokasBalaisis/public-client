@@ -292,7 +292,6 @@ document.addEventListener('click', function(event) {
 
 
 
-
 $(document).on('click', '.info-square-solid.user', function() {
     $(this).addClass('active');
 });

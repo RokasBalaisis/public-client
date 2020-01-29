@@ -1,5 +1,10 @@
 app.filter('capitalize', function() {
     return function(input) {
-        return (angular.isString(input) && input.length > 0) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : input;
+        if (angular.isString(input) && input.length > 0) {
+            return input.replace(/\w\S*/g, function(txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+        }
+        return input;
     }
 });
