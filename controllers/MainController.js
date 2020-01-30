@@ -2,6 +2,9 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
     $scope.name = 'Angular ';
     $scope.hasRegisterFormErrors = false;
     $rootScope.hasLoginFormErrors = false;
+
+
+
     $scope.login = function() {
         $rootScope.currentPage = "login";
         var $data = {
@@ -63,7 +66,7 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
     };
 
     $scope.redirectHome = function() {
-        $location.path('');
+        $location.path('/');
     };
 
     $scope.getMedia = function() {
@@ -73,6 +76,7 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
         })
     }
 
-    $scope.getMedia();
+    if ($location.path() == '/')
+        $scope.getMedia();
 
 }]);
