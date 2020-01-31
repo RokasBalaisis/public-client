@@ -5,7 +5,12 @@
         <div class="row">
             <div ng-repeat="media in mediatype.media" class="media-grid col-xl-3 col-lg-4 col-sm-6 col-xs-12">
                 <div class="media-container">
-                    <div class="media-container-inner-cover" style="background-image: url('{{STORAGE}}{{media.cover[0].folder}}/{{media.cover[0].created_at | datetimeParse}}_{{media.cover[0].name}}');"></div>
+
+                    <img class="info" src="/img/info-square-solid-yellow.svg" style="height:1.5em; width:1.5em; position:absolute; left:4%; top:5%; z-index:2;">
+                    <div class="tooltip">{{media.short_description}}</div>
+                    <div class="media-container-inner-cover" style="background-image: url('{{STORAGE}}{{media.cover[0].folder}}/{{media.cover[0].created_at | datetimeParse}}_{{media.cover[0].name}}');">
+
+                    </div>
                     <div class="media-container-inner-details">
                         {{media.name | capitalize}}
                         <div style=" margin: auto; position: relative; top: 10%; font-size: 14px;">
@@ -15,7 +20,6 @@
                                 <br> <img src="/img/comments-alt.svg" style="height: 1em; filter:invert(100%)"> 0
                                 <rating-stars ratings="media.ratingCount" average-rating="media.ratingAverage"></rating-stars>
                             </p>
-                            <img src="/img/info-square-solid.svg" style="height:1.5em; width:2.5em; filter:invert(1);">
                         </div>
                     </div>
                     <div class="media-container-inner-download">
@@ -24,6 +28,7 @@
                 </div>
             </div>
         </div>
+        <hr>
     </div>
     <h1>{{mediatype.name | capitalize}}</h1>
 </div>
