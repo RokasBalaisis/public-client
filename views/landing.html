@@ -11,10 +11,11 @@
                         <div style=" margin: auto; position: relative; top: 10%; font-size: 14px;">
                             <p>
                                 {{media.year}}
-                                <br> IMDb: {{media.imdb_rating}}
-                                <br> Rating: {{media.ratingAverage}}/5
-                                <br> Comments: 0
+                                <br> <img src="/img/imdb_logo.png" style="height:1em; width:1.5em; padding-bottom:2.5%;"> <span style="color:rgb(241, 219, 16); font-weight:600;">{{media.imdb_rating}}</span>
+                                <br> <img src="/img/comments-alt.svg" style="height: 1em; filter:invert(100%)"> 0
+                                <rating-stars ratings="media.ratingCount" average-rating="media.ratingAverage"></rating-stars>
                             </p>
+                            <img src="/img/info-square-solid.svg" style="height:1.5em; width:2.5em; filter:invert(1);">
                         </div>
                     </div>
                     <div class="media-container-inner-download">

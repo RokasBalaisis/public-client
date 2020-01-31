@@ -76,7 +76,9 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
         })
     }
 
-    if ($location.path() == '/')
-        $scope.getMedia();
 
+    $scope.$on('$locationChangeStart', function(event, next, current) {
+        if (next == $location.absUrl('/'))
+            $scope.getMedia();
+    });
 }]);

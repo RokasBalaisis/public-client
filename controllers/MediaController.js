@@ -12,7 +12,6 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
 
     $scope.yearsArray = [...Array(new Date().getFullYear() + 1).keys()].slice(1900)
 
-    console.log($scope.yearsArray);
 
     $scope.sort = function(keyname) {
         $scope.sortKey = keyname; //set the sortKey to the param passed

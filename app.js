@@ -253,7 +253,6 @@ app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService'
         $rootScope.$on("$locationChangeStart", function(event, next, current) {});
     $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
         $rootScope.currentPage = $location.path();
-
         switch ($rootScope.currentPage) {
             case '/':
                 $rootScope.navbarDisabled = false;
