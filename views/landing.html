@@ -3,7 +3,7 @@
 <div class="landingContainer container-fluid">
     <div ng-repeat="mediatype in mediatypes">
         <div class="row">
-            <div ng-repeat="media in mediatype.media" class="media-grid col-xl-3 col-lg-4 col-sm-6 col-xs-12">
+            <div ng-repeat="media in mediatype.media" class="media-grid col-xl-3 col-lg-4 col-sm-6 col-12">
                 <div class="media-container">
 
                     <img class="info" src="/img/info-square-solid-yellow.svg" style="height:1.5em; width:1.5em; position:absolute; left:4%; top:5%; z-index:2;">
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="media-container-inner-download">
-                        Download
+                        <a ng-href="/media/{{media.name | removeWhitespace}}" class="landing-download-button">Download</a>
                     </div>
                 </div>
             </div>

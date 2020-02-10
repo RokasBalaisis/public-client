@@ -101,6 +101,10 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
                 }
             }
         })
+        .when('/media/:name', {
+            templateUrl: "views/media_details.html",
+            controller: 'MediaDetailsController'
+        })
         .otherwise({
             redirectTo: '/'
         });
