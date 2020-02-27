@@ -117,9 +117,6 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
                 }
             }
         })
-        .when('/api', {
-
-        })
         .otherwise({
             redirectTo: '/'
         });
