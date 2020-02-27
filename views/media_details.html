@@ -2,7 +2,7 @@
 
 <div class="media-details-container">
     <div ng-repeat="file in mediaDetails.files">
-        <img src="{{STORAGE + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name}}" height="200" width="100">
+        <img src="{{STORAGE + '/' + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name}}" height="200" width="100">
         <a href ng-click="download(STORAGE + '/' + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name, file.name)">Download</a>
         <a href="{{STORAGE + '/' + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name}}" data-lity>Image</a>
     </div>
