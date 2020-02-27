@@ -3,6 +3,6 @@
 <div class="media-details-container">
     <div ng-repeat="file in mediaDetails.files">
         <img src="{{STORAGE + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name}}" height="200" width="100">
-        <a href="{{STORAGE + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name}}" download="test">Download</a>
+        <a href="{{'https://moviesandtvshows.com/storage/' + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name}}" download="test">Download</a>
     </div>
 </div>

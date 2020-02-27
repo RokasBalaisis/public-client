@@ -1,8 +1,26 @@
-app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootScope', '$location', function($scope, ApiService, AuthService, $rootScope, $location) {
+app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootScope', '$location', '$http', function($scope, ApiService, AuthService, $rootScope, $location, $http) {
     $scope.name = 'Angular ';
     $scope.hasRegisterFormErrors = false;
     $rootScope.hasLoginFormErrors = false;
 
+
+    $rootScope.download = function download(pathoffile, filename) {
+        $http.get(pathoffile, {
+            responseType: "arraybuffer"
+        }).then(function(response) {
+            $scope.filedata = response.data;
+            var headers = response.headers();
+            headers['Content-Disposition'] = "attachment";
+            var blob = new Blob([response.data], { type: "octet/stream" });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+    }
 
     $scope.getMediaDetails = function($media) {
         console.log($media);
