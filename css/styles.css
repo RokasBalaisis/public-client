@@ -1557,6 +1557,10 @@ input[type=number]:focus,
     -webkit-font-smoothing: antialiased;
 }
 
+.info:hover {
+    filter: saturate(0%) brightness(70%) contrast(300%);
+}
+
 .info+.tooltip {
     background-image: url('/img/media-info-background.png');
     background-position: center;

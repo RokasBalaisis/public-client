@@ -1,5 +1,8 @@
 <!-- Page Content -->
 
 <div class="media-details-container">
-    test
+    <div ng-repeat="file in mediaDetails.files">
+        <img src="{{STORAGE + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name}}" height="200" width="100">
+        <a href="{{STORAGE + file.folder + '/' + (file.created_at | datetimeParse) + '_' + file.name}}" download>Download</a>
+    </div>
 </div>

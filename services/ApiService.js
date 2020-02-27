@@ -63,6 +63,9 @@ app.factory("ApiService", function($http, API) {
         media_delete: function($id) {
             return $http.delete(API + '/media/' + $id);
         },
+        media_detailed_info_by_name: function($media_name) {
+            return $http.get(API + '/media/name/' + $media_name);
+        },
         mediatypes_index: function() {
             return $http.get(API + '/mediatypes');
         },
@@ -71,6 +74,9 @@ app.factory("ApiService", function($http, API) {
         },
         mediatypes_latest_with_media: function() {
             return $http.get(API + '/mediatypes/media/latest');
+        },
+        mediatypes_count: function() {
+            return $http.get(API + '/mediatypes/media/count');
         },
         mediatypes_detailed_info: function($id) {
             return $http.get(API + '/mediatypes/' + $id);

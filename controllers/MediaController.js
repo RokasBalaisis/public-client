@@ -19,7 +19,6 @@ app.controller('MediaController', ['$scope', 'ApiService', '$rootScope', '$locat
     }
 
 
-
     $scope.index = function() {
         var promises = [ApiService.media_index(), ApiService.categories_index(), ApiService.mediatypes_index()];
         $q.all(promises).then(function(responses) {

@@ -4,6 +4,18 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
     $rootScope.hasLoginFormErrors = false;
 
 
+    $scope.getMediaDetails = function($media) {
+        console.log($media);
+        var promise = ApiService.media_detailed_info($media.id);
+
+        promise.then(function(response) {
+            console.log(response.data);
+        }).finally(function(innerResponse) {
+            $location.path('');
+        })
+    }
+
+
 
     $scope.login = function() {
         $rootScope.currentPage = "login";
@@ -69,16 +81,6 @@ app.controller('MainController', ['$scope', 'ApiService', 'AuthService', '$rootS
         $location.path('/');
     };
 
-    $scope.getMedia = function() {
-        var promise = ApiService.mediatypes_latest_with_media();
-        promise.then(function(response) {
-            $scope.mediatypes = response.data.media_types;
-        })
-    }
 
 
-    $scope.$on('$locationChangeStart', function(event, next, current) {
-        if (next == $location.absUrl('/'))
-            $scope.getMedia();
-    });
 }]);

@@ -12,6 +12,12 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
     $routeProvider
         .when('/', {
             templateUrl: 'views/landing.html',
+            controller: 'LandingController',
+            resolve: {
+                latestMedia: function(ApiService) {
+                    return ApiService.mediatypes_latest_with_media();
+                }
+            }
         })
         .when('/login', {
             templateUrl: 'views/login.html',
@@ -39,7 +45,7 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
             templateUrl: 'views/mediatypes.html',
             controller: 'MediaTypeController',
             resolve: {
-                mediatypesIndex: function(ApiService) {
+                mediatypesIndex: function($ApiService) {
                     return ApiService.mediatypes_index();
                 }
             }
@@ -103,7 +109,13 @@ app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locati
         })
         .when('/media/:name', {
             templateUrl: "views/media_details.html",
-            controller: 'MediaDetailsController'
+            controller: 'MediaDetailsController',
+            resolve: {
+                mediaDetails: function($route, ApiService, $rootScope) {
+                    $rootScope.navbarDisabled = false;
+                    return ApiService.media_detailed_info_by_name($route.current.params.name);
+                }
+            }
         })
         .otherwise({
             redirectTo: '/'
