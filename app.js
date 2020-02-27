@@ -1,6 +1,7 @@
 var app = angular.module('project', ['ngStorage', 'ngRoute', 'angular-jwt', 'ui.bootstrap', 'ngYoutubeEmbed', 'angular-loading-bar', 'ngAnimate'])
 app.constant('API', 'https://api.moviesandtvshows.com');
-app.constant('STORAGE', 'https://www.moviesandtvshows.com/storage');
+app.constant('STORAGE_DOWNLOAD', 'https://www.moviesandtvshows.com/storage');
+app.constant('STORAGE', 'https://moviesandtvshows.com/storage');
 
 app.config(['$httpProvider', '$localStorageProvider', '$routeProvider', '$locationProvider', '$sceProvider', function($httpProvider, $localStorageProvider, $routeProvider, $locationProvider, $sceProvider) {
     $localStorageProvider.setKeyPrefix('');
@@ -216,9 +217,10 @@ app.directive('ngFileModel', ['$parse', '$rootScope', function($parse, $rootScop
 }]);
 
 
-app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService', 'jwtHelper', 'API', 'STORAGE', function($rootScope, $localStorage, $location, AuthService, ApiService, jwtHelper, API, STORAGE) {
+app.run(['$rootScope', '$localStorage', '$location', 'AuthService', 'ApiService', 'jwtHelper', 'API', 'STORAGE', 'STORAGE_DOWNLOAD', function($rootScope, $localStorage, $location, AuthService, ApiService, jwtHelper, API, STORAGE, STORAGE_DOWNLOAD) {
     $rootScope.API = API;
     $rootScope.STORAGE = STORAGE;
+    $rootScope.STORAGE_DOWNLOAD = STORAGE_DOWNLOAD;
     $rootScope.loggedIn = function() {
         var result = AuthService.isAuthenticated();
         return result;
